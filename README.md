@@ -20,7 +20,7 @@ During cmake time, users are able to choose any of these implementations using c
 
 - `EDIMPL`
     - `ref10` - portable C implementation. 
-    - `amd64-64-24k` - optimized C++ ASM implementation, works only on Linux amd64. *Disabled by default*. To enable, use switch `-DAMD64_OPTIMIZED=ON`.
+    - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. *Disabled by default*. To enable, use switch `-DAMD64_OPTIMIZED=ON`.
 - `HASH`
     - `sha2_openssl` - enabled only if OpenSSL is found
     - `sha3_brainhub` - default
@@ -65,7 +65,7 @@ Its API was redesigned to separate signature data from the *signed message* cont
 
 ### `amd64-64-24k`
 
-Fast but non-portable C++ASM implementation, only for AMD64. To enable it, use switch `-DAMD64_OPTIMIZED=ON`
+Fast but non-portable C and ASM implementation, only for AMD64. To enable it, use switch `-DAMD64_OPTIMIZED=ON`
 Copied from SUPERCOP. 
 Its API was redesigned to separate signature data from the *signed message* content.
 
