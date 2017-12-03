@@ -1,0 +1,29 @@
+codecov:
+  branch: default
+coverage:
+  precision: 2
+  round: down
+  range: 50...100
+  status:
+    patch:
+      default:
+        target: 50
+    project:
+      default:
+        target: auto
+        threshold: 0.05
+      tests:
+        target: auto
+        paths: "test/"
+    changes:
+      default:
+        enabled: no
+parsers:
+  gcovr:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+comment:
+  layout: "reach, diff, flags, files, footer"

@@ -1,0 +1,11 @@
+---
+Language:        Cpp
+BasedOnStyle:  Google
+BinPackParameters: true
+ExperimentalAutoDetectBinPacking: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AlignConsecutiveAssignments: true
+AlignOperands: true
+...
+

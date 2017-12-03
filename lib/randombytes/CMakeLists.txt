@@ -1,0 +1,5 @@
+if(OPENSSL_FOUND)
+  add_subdirectory(openssl)
+endif()
+add_subdirectory(urandom)
+add_subdirectory(random)
