@@ -21,7 +21,7 @@ typedef struct { unsigned char data[ed25519_privkey_SIZE]; } private_key_t;
  * @brief Generates a keypair. Depends on randombytes.h random generator.
  * @param[out] sk allocated buffer of ed25519_privkey_SIZE
  * @param[out] pk allocated buffer of ed25519_pubkey_SIZE
- * @return 0 if success, non-0 otherwise
+ * @return 1 if success, non-0 otherwise
  */
 int ed25519_create_keypair(private_key_t* sk, public_key_t* pk);
 
