@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-cd $(dirname $PWD)/build
+cd $(dirname $0)/../build
 make cppcheck

@@ -17,7 +17,7 @@ endmacro()
 if(AMD64_OPTIMIZED)
     if(OPENSSL_FOUND)
         edtest(amd64-64-24k-sha2
-            ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2
+            ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2.txt
             # link with
             amd64-64-24k
             sha2_openssl
@@ -26,7 +26,7 @@ if(AMD64_OPTIMIZED)
     endif()
 
     edtest(amd64-64-24k-sha3
-        ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3
+        ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3.txt
 
         # link with
         amd64-64-24k
@@ -39,7 +39,7 @@ endif()
 
 if(OPENSSL_FOUND)
     edtest(ref10-sha2
-        ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2
+        ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2.txt
 
         # link with
         ref10
@@ -49,7 +49,7 @@ if(OPENSSL_FOUND)
 endif()
 
 edtest(ref10-sha3
-    ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3
+    ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3.txt
 
     # link with
     ref10

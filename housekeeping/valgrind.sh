@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
+BUILD_DIR=$(dirname $0)/../build
 
-cd $(dirname $PWD)/build
-BUILD_DIR=$PWD
+cd $BUILD_DIR 
 REPORT_DIR=$BUILD_DIR/reports
 GTEST_DIR=${BUILD_DIR}/bin
 for test in $(ls $GTEST_DIR); do

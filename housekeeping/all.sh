@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
+HERE=$(dirname $0)
+BUILD=$HERE/../build
 
-cd $(dirname $0)
+if [ ! -d "$BUILD" ]; then
+	echo "build ed25519 first"
+	exit 1
+fi
+
+cd $HERE
 
 ./valgrind.sh
-./coverage.sh
 ./cppcheck.sh
+./coverage.sh
+./sonar.sh

@@ -12,6 +12,10 @@ coverage:
       default:
         target: auto
         threshold: 0.05
+        paths:
+          - "lib/"
+          - "!**/.txt"
+          - "!**/.md"
       tests:
         target: auto
         paths: "test/"
