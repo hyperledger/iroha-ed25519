@@ -2,57 +2,30 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(tosha3)
 
-macro(edtest name sign_input)
-    addtest(test-${name} ed25519_test.cpp)
-    target_compile_definitions(test-${name} PUBLIC
-        -DTESTDATA_PATH=${sign_input}
-        )
-    target_link_libraries(test-${name}
-        ${lib}
-        ${ARGN}
-        )
+macro(edtest edname hash rand)
+  addtest(test-${edname} ed25519_test.cpp)
+  target_link_libraries(test-${edname}
+      ${edname}
+      ${hash}
+      ${rand}
+      )
+
+  gethash(${hash} RESULT)
+  if(${RESULT} STREQUAL "SHA2")
+    set(sign_input ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2.txt)
+  elseif(${RESULT} STREQUAL "SHA3")
+    set(sign_input ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3.txt)
+  else()
+    message(FATAL_ERROR "${hash} target does not contain sha2/sha3 in its name. Can't identify testvectors for input")
+  endif()
+
+  target_compile_definitions(test-${edname} PUBLIC
+      -DTESTDATA_PATH=${sign_input}
+      )
 endmacro()
 
-
-if(AMD64_OPTIMIZED)
-    if(OPENSSL_FOUND)
-        edtest(amd64-64-24k-sha2
-            ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2.txt
-            # link with
-            amd64-64-24k
-            sha2_openssl
-            dev_urandom
-    	)
-    endif()
-
-    edtest(amd64-64-24k-sha3
-        ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3.txt
-
-        # link with
-        amd64-64-24k
-        sha3_brainhub
-        dev_urandom
-        )
-endif()
-
-
-
-if(OPENSSL_FOUND)
-    edtest(ref10-sha2
-        ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha2.txt
-
-        # link with
-        ref10
-        sha2_openssl
-        rand_openssl
-    )
-endif()
-
-edtest(ref10-sha3
-    ${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.sha3.txt
-
-    # link with
-    ref10
-    sha3_brainhub
-    dev_urandom
-    )
+edtest(
+    ${EDIMPL}
+    ${HASH}
+    ${RANDOM}
+)

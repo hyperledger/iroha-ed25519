@@ -8,3 +8,4 @@ add_library(${LIB}
     ${sources}
     ${asm}
     )
+set_target_properties(${LIB} PROPERTIES EXCLUDE_FROM_ALL TRUE)

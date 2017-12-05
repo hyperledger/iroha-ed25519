@@ -10,3 +10,4 @@ target_include_directories(sha2_openssl PUBLIC
     ${OPENSSL_INCLUDE_DIR}
     )
 
+set_target_properties(sha2_openssl PROPERTIES EXCLUDE_FROM_ALL TRUE)

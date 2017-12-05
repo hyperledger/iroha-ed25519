@@ -5,16 +5,15 @@ SET(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 SET(CMAKE_CXX_FLAGS "-std=c++14 -Wall")
 SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
 SET(CMAKE_CXX_FLAGS_DEBUG   "-g -Wextra -O0 -fdiagnostics-color")
-SET(CMAKE_C_FLAGS "-Wall -funroll-loops")
-SET(CMAKE_C_FLAGS_RELEASE "-O3")
-SET(CMAKE_C_FLAGS_DEBUG   "-g -Wextra -O0 -fdiagnostics-color")
+SET(CMAKE_C_FLAGS "-Wall")
+SET(CMAKE_C_FLAGS_RELEASE "-O3 -funroll-loops -fomit-frame-pointer")
+SET(CMAKE_C_FLAGS_DEBUG   "-g -Wextra -O0 -fdiagnostics-color ")
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 
 option(TESTING         "Enable testing"      ON)
 option(COVERAGE        "Enable coverage"     ON)
-option(AMD64_OPTIMIZED "Enable amd64-64-24k" OFF)
 
 if(COVERAGE)
   include(cmake/coverage.cmake)
@@ -23,7 +22,7 @@ endif()
 include(cmake/dependencies.cmake)
 include(cmake/functions.cmake)
 
-# auto by default
+## DEFAULTS
 if(NOT EDIMPL)
   set(EDIMPL "ref10")
 endif()
@@ -31,19 +30,18 @@ if(NOT HASH)
   set(HASH   "sha3_brainhub")
 endif()
 if(NOT RANDOM)
+  # https://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers/
   set(RANDOM "dev_urandom")
 endif()
 if(NOT BUILD)
   set(BUILD  "SHARED")
 endif()
 
-set(EDIMPL_OPTIONS ref10)
-if(AMD64_OPTIMIZED)
-  list(APPEND EDIMPL_OPTIONS amd64-64-24k)
-endif()
-
+## OPTIONS
 ENUM(EDIMPL "${EDIMPL}" "Ed25519 implementation"
-    ${EDIMPL_OPTIONS}
+    ref10
+    amd64-64-24k
+    amd64-64-24k-pic
     )
 ENUM(HASH "${HASH}" "SHA implementation"
     sha2_openssl
@@ -63,9 +61,10 @@ ENUM(BUILD "${BUILD}" "library build type"
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 add_subdirectory(lib)
+add_subdirectory(benchmark)
 
 
-set(SOVERSION "1.0.0")
+set(SOVERSION "1.1.0")
 set(LIBED25519_VERSION "${SOVERSION}-${EDIMPL}-${HASH}-${RANDOM}")
 
 
@@ -89,7 +88,7 @@ set_target_properties(ed25519 PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION C
     MACOSX_FRAMETWORK_IDENTIFIER warchant.ed25519
-    VERSION ${LIBED25519_VERSION}
+    VERSION ${SOVERSION}
     SOVERSION ${SOVERSION}
     PUBLIC_HEADER include/ed25519.h
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "warchant"
@@ -100,3 +99,8 @@ if(TESTING)
   enable_testing()
   add_subdirectory(test)
 endif()
+
+set_target_properties(${EDIMPL} PROPERTIES EXCLUDE_FROM_ALL FALSE)
+set_target_properties(${HASH}   PROPERTIES EXCLUDE_FROM_ALL FALSE)
+set_target_properties(${RANDOM} PROPERTIES EXCLUDE_FROM_ALL FALSE)
+

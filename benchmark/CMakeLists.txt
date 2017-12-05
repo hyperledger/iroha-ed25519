@@ -9,16 +9,15 @@ macro(bench name)
   add_executable(benchmark-${name} benchmark.cpp)
   target_link_libraries(benchmark-${name}
       ${name}
+      ${ARGN}
       benchmark
       )
 endmacro()
 
-bench(ref)
-bench(ref10)
-bench(orlp-ed25519)
+bench(
+    ${EDIMPL}
+    ${HASH}
+    ${RANDOM}
+)
 
-if(AMD64)
-  bench(amd64-51-30k)
-  bench(amd64-64-24k)
-endif()
 

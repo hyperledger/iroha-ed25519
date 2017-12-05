@@ -29,12 +29,13 @@ TEST(Random, EnoughEntropy) {
   std::vector<uint8_t> buf(256, 0);
   ASSERT_TRUE(randombytes(buf.data(), buf.size()));
 
-  auto max = max_entropy(256);
+  auto max = max_entropy(256); // 8
   auto ent = entropy(buf);
 
   std::cout << "max entropy: " << max << std::endl;
   std::cout << "calculated:  " << ent << std::endl;
 
   // this test is probably not necessary
+  // but helps to find bad implementations
   ASSERT_GE(ent, max - 2) << "bad randomness source";
 }

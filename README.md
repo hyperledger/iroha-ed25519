@@ -16,16 +16,17 @@ This repository offers at least two different C implementations for every module
 Every implementation is tested and can be replaced with other at link-time.
 New implementations can be added as well.
 
-During cmake time, users are able to choose any of these implementations using cmake definitions:
+During CMake time, users are able to choose any of these implementations using cmake definitions:
 
 - `EDIMPL`
     - `ref10` - portable C implementation. 
-    - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. *Disabled by default*. To enable, use switch `-DAMD64_OPTIMIZED=ON`.
+    - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. 
+    - `amd64-64-24k-pic` - same as `amd64-64-24k`, but has fixes in ASM files, to allow *process independent code* (`-fPIC`) builds. 
 - `HASH`
-    - `sha2_openssl` - enabled only if OpenSSL is found
+    - `sha2_openssl` 
     - `sha3_brainhub` - default
 - `RANDOM`
-    - `rand_openssl` - enabled only if OpenSSL is found
+    - `rand_openssl` 
     - `dev_urandom` - default
     - `dev_random`
 - `BUILD`
@@ -33,7 +34,7 @@ During cmake time, users are able to choose any of these implementations using c
     - `SHARED` - build ed25519 library as shared library (default)
 
 **Example**:
-We want to build shared library with amd64 implementation, SHA3 and PRNG, which reads entropy from `/dev/urandom`:
+We want to build shared library with fast amd64 implementation, SHA3 and PRNG, which reads entropy from `/dev/urandom`:
 
 ```bash
 $ cmake .. -DAMD64_OPTIMIZED=ON -DEDIMPL=amd64-64-24k -DHASH=sha3_brainhub -DRANDOM=dev_urandom -DBUILD=SHARED
@@ -48,10 +49,12 @@ $ cmake .. -DAMD64_OPTIMIZED=ON -DEDIMPL=amd64-64-24k -DHASH=sha3_brainhub -DRAN
 -- Build files have been written to: ...
 ```
 
+**Note**: only those targets (including tests) will be built, which are specified in `EDIMPL`, `HASH`, `RANDOM` variables.
+
 # API
 
 - API for Ed25519 is defined at [ed25519.h](./include/ed25519/ed25519.h)
-- API for Hash is defined at [sha512.h](./include/ed25519/sha512.h)
+- API for SHA512 is defined at [sha512.h](./include/ed25519/sha512.h)
 - API for RNG is defined at [randombytes.h](./include/ed25519/randombytes.h)
 
 # Modules
@@ -65,7 +68,7 @@ Its API was redesigned to separate signature data from the *signed message* cont
 
 ### `amd64-64-24k`
 
-Fast but non-portable C and ASM implementation, only for AMD64. To enable it, use switch `-DAMD64_OPTIMIZED=ON`
+Fast but non-portable C and ASM implementation, only for AMD64. 
 Copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html). 
 Its API was redesigned to separate signature data from the *signed message* content.
 
@@ -91,4 +94,6 @@ This repository offers 3 implementations:
 
 # Authors
 
-[warchant](https://github.com/warchant)
+[@warchant](https://github.com/warchant) - maintainer.
+
+[@l4l](https://github.com/l4l) - added `amd64-64-24k-pic`.

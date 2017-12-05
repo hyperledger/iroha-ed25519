@@ -1,19 +1,20 @@
-macro(shatest name testdata)
+macro(shatest name)
   addtest(test-${name} sha_test.cpp)
+
+  gethash(${name} RESULT)
+  if(${RESULT} STREQUAL "SHA2")
+    set(testdata ${CMAKE_CURRENT_SOURCE_DIR}/sha2.input.txt)
+  elseif(${RESULT} STREQUAL "SHA3")
+    set(testdata ${CMAKE_CURRENT_SOURCE_DIR}/sha3.input.txt)
+  else()
+    message(FATAL_ERROR "${name} does not contain sha2/sha3")
+  endif()
+
   target_compile_definitions(test-${name} PUBLIC
       -DTESTDATA_PATH=${testdata}
       )
   target_link_libraries(test-${name} ${name})
 endmacro()
 
-if(OPENSSL_FOUND)
-  shatest(sha2_openssl
-      ${CMAKE_CURRENT_SOURCE_DIR}/sha2.input.txt
-      )
-else()
-  message(WARNING "OpenSSL can not be found, test-sha2_openssl will not be built")
-endif()
 
-shatest(sha3_brainhub
-    ${CMAKE_CURRENT_SOURCE_DIR}/sha3.input.txt
-    )
+shatest(${HASH})

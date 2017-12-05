@@ -14,8 +14,6 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['gcc-5', 'g++-5']
-        sonarcloud:
-          organization:
       env:
         - COMPILERCC=gcc-5
         - COMPILERCXX=g++-5
@@ -45,14 +43,10 @@ matrix:
         - COMPILERCXX=clang++
 
 
-install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; brew install openssl; fi
-
-
 script:
   - mkdir build
   - cd build
   - export CC=$COMPILERCC; export CXX=$COMPILERCXX
-  - cmake ..
+  - cmake .. -DEDIMPL=ref10 -DHASH=sha3_brainhub -DRANDOM=dev_urandom
   - make
   - ctest

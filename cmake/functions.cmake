@@ -61,6 +61,27 @@ function(ENUM variable check description)
 endfunction()
 
 
-function(getplatform out)
- message(STATUS ${CMAKE_SYSTEM_PROCESSOR})
+
+macro(find_substring string substring out)
+  string(FIND ${string} ${substring} RESULT)
+  if(${RESULT} EQUAL -1)
+    set(${out} FALSE)
+  else()
+    set(${out} TRUE)
+  endif()
+endmacro()
+
+
+function(gethash target out)
+  string(TOUPPER ${target} HASHUPPER)
+  find_substring(${HASHUPPER} "SHA2" ISSHA2)
+  find_substring(${HASHUPPER} "SHA3" ISSHA3)
+
+  if(ISSHA2)
+    set(${out} "SHA2" PARENT_SCOPE)
+  elseif(ISSHA3)
+    set(${out} "SHA3" PARENT_SCOPE)
+  else()
+    message(FATAL_ERROR "${target} does not contain sha2/sha3 in name. Can't determine test set.")
+  endif()
 endfunction()
