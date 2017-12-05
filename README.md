@@ -60,13 +60,13 @@ $ cmake .. -DAMD64_OPTIMIZED=ON -DEDIMPL=amd64-64-24k -DHASH=sha3_brainhub -DRAN
 
 ### `ref10`
 
-Portable but relatively slow C implementation, originally copied from SUPERCOP. 
+Portable but relatively slow C implementation, originally copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html). 
 Its API was redesigned to separate signature data from the *signed message* content.
 
 ### `amd64-64-24k`
 
 Fast but non-portable C and ASM implementation, only for AMD64. To enable it, use switch `-DAMD64_OPTIMIZED=ON`
-Copied from SUPERCOP. 
+Copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html). 
 Its API was redesigned to separate signature data from the *signed message* content.
 
 ## SHA512 has function as a dependency of ed25519
