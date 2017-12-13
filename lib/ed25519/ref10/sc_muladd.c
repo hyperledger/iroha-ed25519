@@ -1,5 +1,5 @@
 #include "sc.h"
-#include "helpers/crypto_types.h"
+#include "ed25519/ed25519/crypto_types.h"
 
 static crypto_uint64 load_3(const unsigned char *in)
 {

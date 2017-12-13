@@ -1,5 +1,5 @@
-#include "ed25519/errcode.h"
-#include "ed25519/sha512.h"
+#include <ed25519/ed25519/errcode.h>
+#include <ed25519/ed25519/sha512.h>
 #include "sha3.h"
 
 int sha512_init(void *ctx) {

@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
-project(ed25519 C CXX)
+set(SOVERSION "1.2.0")
+project(ed25519 VERSION ${SOVERSION} LANGUAGES C CXX)
 
 SET(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 SET(CMAKE_CXX_FLAGS "-std=c++14 -Wall")
@@ -14,11 +15,13 @@ SET(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 
 option(TESTING         "Enable testing"      ON)
 option(COVERAGE        "Enable coverage"     ON)
+option(BENCHMARKING    "Enable benchmarking" ON)
 
 if(COVERAGE)
   include(cmake/coverage.cmake)
 endif()
 
+include(GNUInstallDirs)
 include(cmake/dependencies.cmake)
 include(cmake/functions.cmake)
 
@@ -57,16 +60,15 @@ ENUM(BUILD "${BUILD}" "library build type"
     STATIC
     )
 
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 add_subdirectory(lib)
-add_subdirectory(benchmark)
+if(BENCHMARKING)
+  add_subdirectory(benchmark)
+endif()
 
 
-set(SOVERSION "1.1.0")
 set(LIBED25519_VERSION "${SOVERSION}-${EDIMPL}-${HASH}-${RANDOM}")
-
 
 add_library(ed25519 ${BUILD}
     src/ed25519.c
@@ -80,17 +82,18 @@ target_link_libraries(ed25519
     ${RANDOM}
     )
 install(TARGETS ed25519
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib/static
-    CONFIGURATIONS Release
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 set_target_properties(ed25519 PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION C
     MACOSX_FRAMETWORK_IDENTIFIER warchant.ed25519
     VERSION ${SOVERSION}
     SOVERSION ${SOVERSION}
-    PUBLIC_HEADER include/ed25519.h
+    PUBLIC_HEADER include/ed25519/ed25519.h
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "warchant"
     )
 

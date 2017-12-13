@@ -1,5 +1,5 @@
 #include "fe.h"
-#include "helpers/crypto_types.h"
+#include "ed25519/ed25519/crypto_types.h"
 
 /*
 h = f * f

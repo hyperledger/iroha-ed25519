@@ -1,10 +1,7 @@
-#include "ed25519/ed25519.h"
+#include <ed25519/ed25519/crypto_verify.h>
+#include <ed25519/ed25519.h>
 #include <string.h>
-#include "ed25519/errcode.h"
-#include "ed25519/randombytes.h"
-#include "ed25519/sha512.h"
 #include "ge.h"
-#include "helpers/crypto_verify.h"
 #include "sc.h"
 
 int ed25519_create_keypair(private_key_t *sk, public_key_t *pk) {

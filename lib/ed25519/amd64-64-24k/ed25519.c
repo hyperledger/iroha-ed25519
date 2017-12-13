@@ -1,9 +1,6 @@
-#include "ed25519/ed25519.h"
+#include <ed25519/ed25519.h>
 #include <assert.h>
 #include <string.h>
-#include "ed25519/errcode.h"
-#include "ed25519/randombytes.h"
-#include "ed25519/sha512.h"
 #include "ge25519.h"
 #include "helpers/crypto_verify.h"
 

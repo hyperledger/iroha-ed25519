@@ -1,5 +1,5 @@
 #include "ge.h"
-#include "helpers/crypto_types.h"
+#include "ed25519/ed25519/crypto_types.h"
 
 static unsigned char equal(signed char b,signed char c)
 {

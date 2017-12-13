@@ -1,5 +1,5 @@
 #include "fe.h"
-#include "helpers/crypto_verify.h"
+#include "ed25519/ed25519/crypto_verify.h"
 
 /*
 return 1 if f == 0

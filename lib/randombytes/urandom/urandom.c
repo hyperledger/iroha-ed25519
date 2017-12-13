@@ -1,8 +1,7 @@
-#include "ed25519/randombytes.h"
-
+#include <ed25519/ed25519/randombytes.h>
+#include <ed25519/ed25519/errcode.h>
 #include <fcntl.h>   // for open
 #include <unistd.h>  // for read, ssize_t
-#include "ed25519/errcode.h"
 int randombytes(unsigned char *p, int len) {
   int source = open("/dev/urandom", O_RDONLY);
   if (source < 0) {

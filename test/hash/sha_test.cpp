@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "ed25519/sha512.h"
+#include <ed25519/ed25519/sha512.h>
 #include "hexutil.hpp"
 
 #define STRINGIFY2(x) #x

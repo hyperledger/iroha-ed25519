@@ -55,3 +55,4 @@ cmake-build*
 .idea
 build
 .scannerwork
+external

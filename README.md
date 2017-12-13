@@ -8,7 +8,7 @@ Ed25519 digital signature algorithm is described in [RFC8032](https://tools.ietf
 This repository aims to provide modularized implementation of this algorithm. 
 
 Originally Ed25519 consists of three *modules*: 
-- algorithm itself
+- digital signature algorithm itself
 - SHA512 hash function
 - random number generator, to generate keypairs
 
@@ -21,7 +21,7 @@ During CMake time, users are able to choose any of these implementations using c
 - `EDIMPL`
     - `ref10` - portable C implementation. 
     - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. 
-    - `amd64-64-24k-pic` - same as `amd64-64-24k`, but has fixes in ASM files, to allow *process independent code* (`-fPIC`) builds. 
+    - `amd64-64-24k-pic` - same as `amd64-64-24k`, but has fixes in ASM files, to allow *position independent code* (`-fPIC`) builds. 
 - `HASH`
     - `sha2_openssl` 
     - `sha3_brainhub` - default
@@ -53,35 +53,26 @@ $ cmake .. -DAMD64_OPTIMIZED=ON -DEDIMPL=amd64-64-24k -DHASH=sha3_brainhub -DRAN
 
 # API
 
-- API for Ed25519 is defined at [ed25519.h](./include/ed25519/ed25519.h)
-- API for SHA512 is defined at [sha512.h](./include/ed25519/sha512.h)
-- API for RNG is defined at [randombytes.h](./include/ed25519/randombytes.h)
+- API for Ed25519 is defined at [ed25519.h](include/ed25519/ed25519/ed25519.h)
+- API for SHA512 is defined at [sha512.h](include/ed25519/ed25519/sha512.h)
+- API for RNG is defined at [randombytes.h](include/ed25519/ed25519/randombytes.h)
 
 # Modules
 
 ## ed25519 digital signature algorithm
 
-### `ref10`
-
-Portable but relatively slow C implementation, originally copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html). 
+- `ref10` - portable but relatively slow C implementation, originally copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html). 
 Its API was redesigned to separate signature data from the *signed message* content.
-
-### `amd64-64-24k`
-
-Fast but non-portable C and ASM implementation, only for AMD64. 
+- `amd64-64-24k` - fast (4x ref10) but non-portable C and ASM implementation, only for AMD64. 
 Copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html). 
-Its API was redesigned to separate signature data from the *signed message* content.
+Adopted to be included as a module.
+- `amd64-64-24k-pic` - same implementation as `amd64-64-24k`, but has Position Independent Code (`-fPIC`) fixes by @l4l.
 
 ## SHA512 has function as a dependency of ed25519
 
-### `sha2_openssl`
-
-Implementation of FIPS 180-4 SHA2 512 hash function, which uses openssl underneath.
-
-### `sha3_brainhub`
-
-Implementation of FIPS 202 SHA3 512 hash function taken from [brainhub repository](https://github.com/brainhub/SHA3IUF).
-Repository consisted of a single C file, which was adopted to be included in a project as a module.
+- `sha2_openssl` - implementation of FIPS 180-4 SHA2 512 hash function, which uses openssl underneath
+- `sha3_brainhub` - implementation of FIPS 202 SHA3 512 hash function taken from [brainhub repository](https://github.com/brainhub/SHA3IUF).
+Repository consists of a single C file, which was adopted to be included in a project as a module.
 
 ## PRNG implementation as a dependency of ed25519
 

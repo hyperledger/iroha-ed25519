@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "ed25519.h"
+#include <ed25519/ed25519.h>
 
 #define STR2(x) #x
 #define STR(x) STR2(x)

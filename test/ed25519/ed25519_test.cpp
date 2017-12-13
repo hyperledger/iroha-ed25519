@@ -1,8 +1,7 @@
-#include "ed25519/ed25519.h"
-#include <ed25519.h>
+#include <ed25519/ed25519/crypto_types.h>
+#include <ed25519/ed25519.h>
 #include <gtest/gtest.h>
 #include <fstream>
-#include "helpers/crypto_types.h"
 #include "hexutil.hpp"
 
 #define STRINGIFY2(x) #x

@@ -1,4 +1,4 @@
-#include "ed25519/sha512.h"
+#include <ed25519/ed25519/sha512.h>
 #include <openssl/sha.h>
 #include <stddef.h>
 

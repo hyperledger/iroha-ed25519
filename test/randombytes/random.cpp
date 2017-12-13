@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <cmath>
 #include <random>
-#include "ed25519/randombytes.h"
+#include <ed25519/ed25519/randombytes.h>
 
 double entropy(std::vector<uint8_t> p) {
   std::vector<uint8_t> map(256, 0);

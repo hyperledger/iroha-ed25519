@@ -6,6 +6,9 @@ set_directory_properties(PROPERTIES
     EP_PREFIX ${EP_PREFIX}
     )
 
-find_package(gtest)
-find_package(benchmark)
-find_package(OpenSSL)
+if(TESTING)
+  find_package(gtest)
+endif()
+if(BENCHMARKING)
+  find_package(benchmark)
+endif()
