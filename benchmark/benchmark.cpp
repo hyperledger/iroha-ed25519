@@ -1,6 +1,5 @@
 #include <benchmark/benchmark.h>
-
-#include "ed25519.h"
+#include <ed25519/ed25519.h>
 
 std::string random_str(size_t size) {
   unsigned int SEED = 1337;
