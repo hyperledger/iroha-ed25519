@@ -20,7 +20,7 @@ int sha512_final(void *ctx, unsigned char *out) {
 
 extern int sha512(unsigned char *out, const unsigned char *message,
                   unsigned long long message_len) {
-  unsigned char ctx[SHA_CONTEXT_SIZE];
+  unsigned char ctx[SHA_512_CONTEXT_SIZE];
   sha512_init((void *)ctx);
   sha512_update((void *)ctx, message, message_len);
   sha512_final((void *)ctx, out);

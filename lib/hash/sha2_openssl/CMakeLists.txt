@@ -2,6 +2,7 @@ find_package(OpenSSL REQUIRED)
 
 set(LIB sha2_openssl)
 add_library(${LIB}
+    sha256.c
     sha512.c
     )
 target_link_libraries(${LIB}

@@ -1,59 +1,59 @@
-#ifndef PROJECT_SHA512_H_
-#define PROJECT_SHA512_H_
+#ifndef PROJECT_SHA256_H_
+#define PROJECT_SHA256_H_
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-#define SHA_512_SIZE 64  // bytes
+#define SHA_256_SIZE 32  // bytes
 
 /* implementation-defined sha context size in bytes. */
-extern const unsigned int SHA_512_CONTEXT_SIZE;
+extern const unsigned int SHA_256_CONTEXT_SIZE;
 
-/* context is a block of memory of exactly SHA_512_CONTEXT_SIZE bytes */
-/* example: unsigned char context[SHA_512_CONTEXT_SIZE]; */
+/* context is a block of memory of exactly SHA_256_CONTEXT_SIZE bytes */
+/* example: unsigned char context[SHA_256_CONTEXT_SIZE]; */
 
 /**
  * Initializes context with specific for implementation size.
- * @param[in] context always pass preallocated buffer of SHA_512_CONTEXT_SIZE;
+ * @param[in] context always pass preallocated buffer of SHA_256_CONTEXT_SIZE;
  * @return 0 if error, non-0 otherwise.
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512_init(void *context);
+extern int sha256_init(void *context);
 
 /**
  * Updates hash state with given buffer
- * @param[in] context always pass preallocated buffer of SHA_512_CONTEXT_SIZE;
+ * @param[in] context always pass preallocated buffer of SHA_256_CONTEXT_SIZE;
  * @param[in] in input buffer with info to be hashed
  * @param[in] inlen buffer size
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512_update(void *context, const unsigned char *in,
+extern int sha256_update(void *context, const unsigned char *in,
                          unsigned long long inlen);
 
 /**
  * Finish hash calculation. Use this to store hash in output buffer (out).
- * @param[in] context always pass preallocated buffer of SHA_512_CONTEXT_SIZE;
- * @param[in] out output buffer of exactly SHA_512_SIZE bytes
+ * @param[in] context always pass preallocated buffer of SHA_256_CONTEXT_SIZE;
+ * @param[in] out output buffer of exactly SHA_256_SIZE bytes
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512_final(void *context, unsigned char *out);
+extern int sha256_final(void *context, unsigned char *out);
 
 /**
- * Inline hash calculation of sha512.
- * @param[out] out output buffer of exactly SHA_512_SIZE bytes
+ * Inline hash calculation of sha256.
+ * @param[out] out output buffer of exactly SHA_256_SIZE bytes
  * @param[in] message message buffer to be hashed
  * @param[in] message_len size of the message buffer
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512(unsigned char *out, const unsigned char *message,
+extern int sha256(unsigned char *out, const unsigned char *message,
                   unsigned long long message_len);
 
 #if defined(__cplusplus)
 }
 #endif
 
-#endif /* PROJECT_SHA512_H_ */
+#endif /* PROJECT_SHA256_H_ */
