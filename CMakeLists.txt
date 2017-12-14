@@ -21,6 +21,7 @@ if(COVERAGE)
   include(cmake/coverage.cmake)
 endif()
 
+include(GenerateExportHeader)
 include(GNUInstallDirs)
 include(cmake/dependencies.cmake)
 include(cmake/functions.cmake)
@@ -77,21 +78,26 @@ target_compile_definitions(ed25519 PUBLIC
     -DLIBED25519_VERSION=${LIBED25519_VERSION}
     )
 target_link_libraries(ed25519
-    ${EDLIB}
+    ${EDIMPL}
     ${HASH}
     ${RANDOM}
     )
-install(TARGETS ed25519
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
+
+setup_ed25519_install_cmake(ed25519 ed25519Config)
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT ed25519Config DESTINATION share/ed25519/cmake)
+export(TARGETS ed25519 ${EDIMPL} ${HASH} ${RANDOM} FILE ed25519Config.cmake)
+target_include_directories(ed25519 PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+    )
+generate_export_header(ed25519)
+
 set_target_properties(ed25519 PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION C
     MACOSX_FRAMETWORK_IDENTIFIER warchant.ed25519
-    VERSION ${SOVERSION}
+    VERSION   ${SOVERSION}
     SOVERSION ${SOVERSION}
     PUBLIC_HEADER include/ed25519/ed25519.h
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "warchant"

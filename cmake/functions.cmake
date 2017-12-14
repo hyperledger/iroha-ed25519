@@ -85,3 +85,12 @@ function(gethash target out)
     message(FATAL_ERROR "${target} does not contain sha2/sha3 in name. Can't determine test set.")
   endif()
 endfunction()
+
+
+macro(setup_ed25519_install_cmake target config)
+  install(TARGETS ${target} EXPORT ${config}
+          LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+          ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static
+          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+          )
+endmacro()
