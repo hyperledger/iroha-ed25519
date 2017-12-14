@@ -43,28 +43,10 @@ matrix:
         - COMPILERCXX=clang++
 
 
-install:
-  - if [ $TRAVIS_OS_NAME = linux ]; then ./housekeeping/install_deps_linux.sh; fi
-  - if [ $TRAVIS_OS_NAME = osx   ]; then ./housekeeping/install_deps_osx.sh  ; fi
-
 script:
   - mkdir build
   - cd build
   - export CC=$COMPILERCC; export CXX=$COMPILERCXX
-  # build ref10 with sha2
-  - cmake .. -DOPENSSL_ROOT_DIR="$OPENSSL_ROOT_DIR" -DEDIMPL=ref10 -DHASH=sha2_openssl -DRANDOM=rand_openssl
+  - cmake .. -DEDIMPL=ref10 -DHASH=sha3_brainhub -DRANDOM=dev_urandom
   - make
   - ctest
-  # build ref10 with sha3
-  - cmake .. -DOPENSSL_ROOT_DIR="$OPENSSL_ROOT_DIR" -DEDIMPL=ref10 -DHASH=sha3_brainhub -DRANDOM=dev_urandom
-  - make
-  - ctest
-  # build amd64-24-24k-pic
-  - cmake .. -DEDIMPL=amd64-64-24k-pic -DHASH=sha3_brainhub -DRANDOM=dev_urandom
-  - make
-  - ctest
-  # build amd64-64-24k
-  - cmake .. -DEDIMPL=amd64-64-24k -DHASH=sha3_brainhub -DRANDOM=dev_urandom
-  - make
-  - ctest
-  

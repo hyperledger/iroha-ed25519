@@ -21,5 +21,5 @@ int sha512_final(void *ctx, unsigned char *out) {
 int sha512(unsigned char *out, const unsigned char *in,
            unsigned long long inlen) {
   // SHA512 returns NULL in case of error
-  return SHA512(in, inlen, out);
+  return SHA512(in, inlen, out) != NULL;
 }

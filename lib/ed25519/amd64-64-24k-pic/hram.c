@@ -1,4 +1,4 @@
-#include "ed25519/sha512.h"
+#include <ed25519/ed25519/sha512.h>
 #include "hram.h"
 
 void get_hram(unsigned char *hram, const unsigned char *sm, const unsigned char *pk, unsigned char *playground, unsigned long long smlen)

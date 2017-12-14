@@ -1,8 +1,9 @@
 #include <ed25519/ed25519.h>
+#include <ed25519/ed25519/crypto_verify.h>
 #include <assert.h>
 #include <string.h>
 #include "ge25519.h"
-#include "helpers/crypto_verify.h"
+
 
 int ed25519_create_keypair(private_key_t *sk, public_key_t *pk) {
   if (!randombytes(sk->data, ed25519_privkey_SIZE))
@@ -30,7 +31,7 @@ void ed25519_derive_public_key(const private_key_t *sk, public_key_t *pk) {
 void ed25519_sign(signature_t *sig, const unsigned char *msg,
                   unsigned long long msglen, const public_key_t *pk,
                   const private_key_t *sk) {
-  unsigned char context[SHA_CONTEXT_SIZE];
+  unsigned char context[SHA_512_CONTEXT_SIZE];
   unsigned char az[64];
   unsigned char nonce[64];  // r
   unsigned char hram[64];
@@ -77,7 +78,7 @@ void ed25519_sign(signature_t *sig, const unsigned char *msg,
 
 int ed25519_verify(const signature_t *sig, const unsigned char *msg,
                    unsigned long long msglen, const public_key_t *pk) {
-  unsigned char context[SHA_CONTEXT_SIZE];
+  unsigned char context[SHA_512_CONTEXT_SIZE];
   unsigned char pkcopy[32];
   unsigned char rcopy[32];
   unsigned char hram[64];
