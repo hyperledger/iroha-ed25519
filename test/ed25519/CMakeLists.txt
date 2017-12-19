@@ -3,11 +3,11 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_subdirectory(tosha3)
 
 macro(edtest edname hash rand)
-  addtest(test-${edname} ed25519_test.cpp)
-  target_link_libraries(test-${edname}
-      ${edname}
-      ${hash}
-      ${rand}
+  addtest(test-${edname}
+      ed25519_test.cpp
+      $<TARGET_OBJECTS:${edname}>
+      $<TARGET_OBJECTS:${hash}>
+      $<TARGET_OBJECTS:${rand}>
       )
 
   gethash(${hash} RESULT)

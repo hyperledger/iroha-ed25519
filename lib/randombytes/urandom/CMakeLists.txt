@@ -1,5 +1,4 @@
 set(LIB dev_urandom)
-add_library(${LIB}
+add_library(${LIB} OBJECT
     urandom.c
     )
-setup_ed25519_install_cmake(${LIB} ed25519Config)
