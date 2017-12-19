@@ -14,10 +14,13 @@ SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 
 option(TESTING         "Enable testing"      ON)
-option(COVERAGE        "Enable coverage"     ON)
-option(BENCHMARKING    "Enable benchmarking" ON)
+option(COVERAGE        "Enable coverage"     OFF)
+option(BENCHMARKING    "Enable benchmarking" OFF)
 
 if(COVERAGE)
+  if(CMAKE_BUILD_TYPE STREQUAL Release)
+    message(FATAL_ERROR "Can't collect coverage in Release mode")
+  endif()
   include(cmake/coverage.cmake)
 endif()
 
@@ -91,7 +94,6 @@ target_include_directories(ed25519 PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     )
-generate_export_header(ed25519)
 
 set_target_properties(ed25519 PROPERTIES
     FRAMEWORK TRUE
