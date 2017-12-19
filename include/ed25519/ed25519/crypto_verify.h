@@ -75,4 +75,4 @@ static inline int crypto_verify_32(const unsigned char *x,
 }
 #endif
 
-#endif VERIFY_GUARD_H
+#endif
