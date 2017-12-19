@@ -86,11 +86,3 @@ function(gethash target out)
   endif()
 endfunction()
 
-
-macro(setup_ed25519_install_cmake target config)
-  install(TARGETS ${target} EXPORT ${config}
-          LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-          ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static
-          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-          )
-endmacro()
