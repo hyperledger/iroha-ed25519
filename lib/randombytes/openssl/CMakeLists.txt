@@ -1,7 +1,7 @@
 find_package(OpenSSL REQUIRED)
 
 set(LIB rand_openssl)
-add_library(${LIB}
+add_library(${LIB} OBJECT
     randombytes.c
     )
 target_link_libraries(${LIB}
@@ -10,5 +10,3 @@ target_link_libraries(${LIB}
 target_include_directories(${LIB} PUBLIC
     ${OPENSSL_INCLUDE_DIR}
     )
-
-setup_ed25519_install_cmake(${LIB} ed25519Config)

@@ -1,6 +1,4 @@
 set(LIB dev_random)
-add_library(${LIB}
+add_library(${LIB} OBJECT
     random.c
     )
-
-setup_ed25519_install_cmake(${LIB} ed25519Config)

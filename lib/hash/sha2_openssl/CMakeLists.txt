@@ -1,7 +1,7 @@
 find_package(OpenSSL REQUIRED)
 
 set(LIB sha2_openssl)
-add_library(${LIB}
+add_library(${LIB} OBJECT
     sha256.c
     sha512.c
     )
@@ -13,5 +13,3 @@ target_include_directories(${LIB} PUBLIC
     )
 
 set_target_properties(${LIB} PROPERTIES EXCLUDE_FROM_ALL TRUE)
-
-setup_ed25519_install_cmake(${LIB} ed25519Config)

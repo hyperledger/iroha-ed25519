@@ -1,5 +1,5 @@
 macro(shatest name)
-  addtest(test-${name} sha_test.cpp)
+  addtest(test-${name} sha_test.cpp $<TARGET_OBJECTS:${name}>)
 
   gethash(${name} RESULT)
   if(${RESULT} STREQUAL "SHA2")
@@ -13,7 +13,6 @@ macro(shatest name)
   target_compile_definitions(test-${name} PUBLIC
       -DTESTDATA_PATH=${testdata}
       )
-  target_link_libraries(test-${name} ${name})
 endmacro()
 
 
