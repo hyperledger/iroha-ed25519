@@ -1,6 +1,8 @@
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_subdirectory(tosha3)
+if(HASH STREQUAL sha3_brainhub)
+  add_subdirectory(tosha3)
+endif()
 
 macro(edtest edname hash rand)
   addtest(test-${edname}

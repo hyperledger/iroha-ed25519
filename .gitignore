@@ -56,3 +56,5 @@ cmake-build*
 build
 .scannerwork
 external
+
+example/build
