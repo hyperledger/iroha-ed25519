@@ -9,3 +9,20 @@ To test ed25519 with sha3 I generated own test vectors ([`sign.input.with.sha3.t
 2. use ref10 implementation and sha3_brainhub implementation
 
 Source code is available at [tosha3](./tosha3) directory.
+
+# sign.input format
+
+```
+[ 
+  32 bytes private key (hexencoded - 64 bytes)
+  32 bytes public key  (hexencoded - 64 bytes)
+  :
+  32 bytes public key  (hexencoded - 64 bytes) - should be same as previous
+  :
+  hexencoded message. Can be arbitrary length, even 0
+  :
+  64 bytes signature   (hexencoded - 128 bytes)
+  hexencoded message. Same as previous msg field.
+  :
+  \n
+]```
