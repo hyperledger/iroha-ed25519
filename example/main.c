@@ -7,7 +7,7 @@ int main(int arc, char** argv) {
   int ret = ed25519_create_keypair(&priv, &pub);
   assert(ret != 0);  // status code: ok
 
-  const int size           = 8;
+  const int size           = 7;
   unsigned char *buff = "ed25519";
 
   signature_t sig;
