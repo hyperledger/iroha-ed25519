@@ -1,4 +1,3 @@
-can_build_amd64(CAN_BUILD_AMD64)
 if(CAN_BUILD_AMD64)
   add_subdirectory(amd64-64-24k)
   add_subdirectory(amd64-64-24k-pic)
