@@ -7,11 +7,11 @@ include_directories(${CMAKE_SOURCE_DIR}/../util)
 
 add_executable(tosha3
   tosha3.cpp
-    )
+  )
 target_link_libraries(tosha3
-    ed25519
-    )
+  ed25519
+  )
 target_compile_definitions(tosha3 PUBLIC
-    -DTESTDATAIN_PATH=${CMAKE_SOURCE_DIR}/sign.input.with.sha2.txt
-    -DTESTDATAOUT_PATH=${CMAKE_SOURCE_DIR}/sign.input.with.sha3.txt
-    )
+  -DTESTDATAIN_PATH=${CMAKE_SOURCE_DIR}/sign.input.with.sha2.txt
+  -DTESTDATAOUT_PATH=${CMAKE_SOURCE_DIR}/sign.input.with.sha3.txt
+  )
