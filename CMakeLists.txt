@@ -17,7 +17,7 @@ set(CMAKE_C_EXTENSIONS                 OFF)
 set(CMAKE_C_FLAGS_RELEASE              "${CMAKE_C_FLAGS_RELEASE} -O3 -NDEBUG")
 set(CMAKE_C_FLAGS_DEBUG                "${CMAKE_C_FLAGS_DEBUG} -g -O0 -fdiagnostics-color ")
 
-set(CMAKE_CXX_STANDARD                 11)    # force std=c++14
+set(CMAKE_CXX_STANDARD                 11)    # force std=c++11
 set(CMAKE_CXX_STANDARD_REQUIRED        ON)
 set(CMAKE_CXX_EXTENSIONS               OFF)
 set(CMAKE_CXX_FLAGS_RELEASE            "${CMAKE_CXX_FLAGS_RELEASE} -O3 -NDEBUG")
