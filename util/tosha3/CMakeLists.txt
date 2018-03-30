@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(ed25519_to_sha3 C)
 
 find_package(ed25519 REQUIRED)
-include_directories(${CMAKE_SOURCE_DIR}/../util)
+include_directories(${CMAKE_SOURCE_DIR}/..)
 
 add_executable(tosha3
   tosha3.cpp
