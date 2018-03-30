@@ -1,7 +1,7 @@
 function(addtest test_name)
   set(SOURCES ${ARGN})
   add_executable(${test_name} ${SOURCES})
-  target_link_libraries(${test_name} gtest gmock)
+  target_link_libraries(${test_name} PUBLIC gtest gmock)
   add_test(
       NAME ${test_name}
       COMMAND $<TARGET_FILE:${test_name}>
@@ -86,3 +86,44 @@ function(gethash target out)
   endif()
 endfunction()
 
+function(ed25519_add_library LIBNAME)
+  set(options "")
+  set(oneValueArgs "")
+  set(multiValueArgs SOURCES INCLUDES LINK_LIBRARIES COMPILE_DEFINITIONS)
+  cmake_parse_arguments(LIB_${LIBNAME} "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+  # for every sourcefile, replace relative path with absolute path to source file
+  foreach(file ${LIB_${LIBNAME}_SOURCES})
+    get_filename_component(abspath ${file} REALPATH)
+    list(APPEND    LIB_${LIBNAME}_SOURCES ${abspath})
+    list(REMOVE_AT LIB_${LIBNAME}_SOURCES 0)
+  endforeach()
+
+  foreach(j ${multiValueArgs})
+    set_property (GLOBAL PROPERTY LIB_${LIBNAME}_${j} "${LIB_${LIBNAME}_${j}}")
+  endforeach()
+
+  add_library(${LIBNAME} STATIC
+    ${LIB_${LIBNAME}_SOURCES}
+    )
+  target_link_libraries(${LIBNAME} PUBLIC
+    ${LIB_${LIBNAME}_LINK_LIBRARIES}
+    )
+  target_compile_definitions(${LIBNAME} PUBLIC
+    ${LIB_${LIBNAME}_COMPILE_DEFINITIONS}
+    )
+  target_include_directories(${LIBNAME} PUBLIC
+    ${LIB_${LIBNAME}_INCLUDES}
+    )
+  set_target_properties(${LIBNAME} PROPERTIES EXCLUDE_FROM_ALL TRUE)
+
+
+endfunction(ed25519_add_library)
+
+function(can_build_amd64 OUT)
+  if (UNIX AND CMAKE_SYSTEM_PROCESSOR MATCHES "amd64.*|AMD64.*|x86_64.*")
+    set(${OUT} TRUE PARENT_SCOPE)
+  else()
+    set(${OUT} FALSE PARENT_SCOPE)
+  endif()
+endfunction()

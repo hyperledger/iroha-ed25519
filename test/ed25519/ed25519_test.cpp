@@ -3,6 +3,8 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include "hexutil.hpp"
+#include "helpers.hpp"
+
 
 #define STRINGIFY2(x) #x
 #define STRINGIFY(x) STRINGIFY2(x)
@@ -12,7 +14,6 @@
     "Define TESTDATA_PATH with path to test data. Example file: http://ed25519.cr.yp.to/python/sign.input"
 #endif
 
-#include "tosha3/helpers.hpp"
 
 /***************************/
 class Ed25519_Fixture : public ::testing::Test {

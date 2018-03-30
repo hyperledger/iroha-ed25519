@@ -1,12 +1,10 @@
 find_package(OpenSSL REQUIRED)
 
-set(LIB rand_openssl)
-add_library(${LIB} OBJECT
+ed25519_add_library(rand_openssl
+  SOURCES
     randombytes.c
-    )
-target_link_libraries(${LIB}
+  LINK_LIBRARIES
     ${OPENSSL_CRYPTO_LIBRARY}
-    )
-target_include_directories(${LIB} PUBLIC
+  INCLUDES
     ${OPENSSL_INCLUDE_DIR}
-    )
+  )

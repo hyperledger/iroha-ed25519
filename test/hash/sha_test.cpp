@@ -1,7 +1,7 @@
 #include <ed25519/ed25519/sha256.h>
 #include <ed25519/ed25519/sha512.h>
 #include <gtest/gtest.h>
-#include "hexutil.hpp"
+#include "../../util/hexutil.hpp"
 
 #define STRINGIFY2(x) #x
 #define STRINGIFY(x) STRINGIFY2(x)

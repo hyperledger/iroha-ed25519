@@ -1,15 +1,11 @@
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-if(HASH STREQUAL sha3_brainhub)
-  add_subdirectory(tosha3)
-endif()
-
 macro(edtest edname hash rand)
   addtest(test-${edname}
       ed25519_test.cpp
-      $<TARGET_OBJECTS:${edname}>
-      $<TARGET_OBJECTS:${hash}>
-      $<TARGET_OBJECTS:${rand}>
+      )
+  target_link_libraries(test-${edname} PUBLIC
+      ed25519
       )
 
   gethash(${hash} RESULT)

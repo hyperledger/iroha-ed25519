@@ -1,0 +1,24 @@
+{
+global:
+    ed25519_create_keypair;
+    ed25519_derive_public_key;
+    ed25519_sign;
+    ed25519_verify;
+
+    sha512_init;
+    sha512_final;
+    sha512_update;
+    sha512;
+    SHA_512_CONTEXT_SIZE;
+
+    sha256_init;
+    sha256_final;
+    sha256_update;
+    sha256;
+    SHA_256_CONTEXT_SIZE;
+
+    randombytes;
+
+
+local: *;
+};

@@ -1,7 +1,6 @@
-set(LIB sha3_brainhub)
-add_library(${LIB} OBJECT
+ed25519_add_library(sha3_brainhub
+  SOURCES
     sha3.c
     sha3_256.c
     sha3_512.c
-    )
-set_target_properties(${LIB} PROPERTIES EXCLUDE_FROM_ALL TRUE)
+  )

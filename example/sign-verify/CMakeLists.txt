@@ -4,8 +4,8 @@ project(ed25519_example C)
 find_package(ed25519 REQUIRED)
 
 add_executable(test1
-    main.c
-    )
+  main.c
+  )
 target_link_libraries(test1
-    ed25519
-    )
+  ed25519
+  )
