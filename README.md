@@ -20,7 +20,7 @@ During CMake time, users are able to choose any of these implementations using c
 
 - `EDIMPL`
     - `ref10` - portable C implementation. 
-    - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. 
+    - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. **This option is likely to fail during compilation of `ed25519` library, use `amd64-64-24k-pic`.
     - `amd64-64-24k-pic` - same as `amd64-64-24k`, but has fixes in ASM files, to allow *position independent code* (`-fPIC`) builds. 
 - `HASH`
     - `sha2_openssl` 
