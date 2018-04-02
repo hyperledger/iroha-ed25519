@@ -1,7 +1,7 @@
 set(LIB ref10)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 FILE(GLOB sources ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
-add_library(${LIB} OBJECT
-    ${sources}
+ed25519_add_library(ref10
+    SOURCES ${sources}
     )
-set_target_properties(${LIB} PROPERTIES EXCLUDE_FROM_ALL TRUE)

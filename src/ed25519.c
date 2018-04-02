@@ -4,5 +4,5 @@
 #if defined(LIBED25519_VERSION)
 const char* libed25519_version = STR(LIBED25519_VERSION);
 #else
-const char* libed25519_version = STR("1.2.0");
+#error "Define LIBED25519_VERSION"
 #endif

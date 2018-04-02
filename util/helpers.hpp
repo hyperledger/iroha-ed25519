@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <ed25519/ed25519.h>
+#include "ed25519/ed25519.h"
 #include "hexutil.hpp"
 
 // hexencoded data

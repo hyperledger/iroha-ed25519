@@ -8,7 +8,7 @@ To test ed25519 with sha3 I generated own test vectors ([`sign.input.with.sha3.t
 1. use original structure, original message, original private key (public key differs)
 2. use ref10 implementation and sha3_brainhub implementation
 
-Source code is available at [tosha3](./tosha3) directory.
+Source code is available at [tosha3](../../example/tosha3) directory.
 
 # sign.input format
 

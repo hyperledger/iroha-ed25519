@@ -1,5 +1,10 @@
 macro(rngtest name)
-  addtest(test-${name} random.cpp $<TARGET_OBJECTS:${name}>)
+  addtest(test-${name} random.cpp)
+  target_link_libraries(test-${name} PUBLIC
+    ${name}
+    )
 endmacro()
 
-rngtest(${RANDOM})
+rngtest(rand_openssl)
+rngtest(dev_random)
+rngtest(dev_urandom)

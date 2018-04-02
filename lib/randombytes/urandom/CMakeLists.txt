@@ -1,4 +1,3 @@
-set(LIB dev_urandom)
-add_library(${LIB} OBJECT
-    urandom.c
-    )
+ed25519_add_library(dev_urandom
+  SOURCES urandom.c
+  )

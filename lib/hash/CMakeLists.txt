@@ -1,7 +1,8 @@
-if(HASH STREQUAL sha2_openssl)
+find_package(OpenSSL)
+if(OPENSSL_FOUND)
   add_subdirectory(sha2_openssl)
-elseif(HASH STREQUAL sha3_brainhub)
-  add_subdirectory(sha3_brainhub)
 else()
-  message(FATAL_ERROR "No such hash implementation ${HASH}")
+  message(STATUS "sha2_openssl target is not available")
 endif()
+
+add_subdirectory(sha3_brainhub)

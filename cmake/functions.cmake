@@ -1,18 +1,29 @@
 function(addtest test_name)
   set(SOURCES ${ARGN})
   add_executable(${test_name} ${SOURCES})
-  target_link_libraries(${test_name} gtest gmock)
+  target_link_libraries(${test_name} PUBLIC gtest gmock)
   add_test(
       NAME ${test_name}
       COMMAND $<TARGET_FILE:${test_name}>
   )
+
+  set_target_properties(${test_name} PROPERTIES
+    EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin
+    ARCHIVE_OUTPUT_PATH    ${CMAKE_BINARY_DIR}/lib/static
+    LIBRARY_OUTPUT_PATH    ${CMAKE_BINARY_DIR}/lib
+    )
 endfunction()
 
-# Creates benchmark "bench_name", with "SOURCES" (use string as second argument)
-function(addbenchmark bench_name SOURCES)
-  add_executable(${bench_name} ${SOURCES})
+# Creates benchmark "bench_name"
+function(addbenchmark bench_name)
+  add_executable(${bench_name} ${ARGN})
   target_link_libraries(${bench_name} PRIVATE benchmark)
-  strictmode(${bench_name})
+
+  set_target_properties(${bench_name} PROPERTIES
+    EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin
+    ARCHIVE_OUTPUT_PATH    ${CMAKE_BINARY_DIR}/lib/static
+    LIBRARY_OUTPUT_PATH    ${CMAKE_BINARY_DIR}/lib
+    )
 endfunction()
 
 
@@ -32,7 +43,7 @@ function(ENUM variable check description)
   list(APPEND opts_pretty "]")
   JOIN("${opts_pretty}" "" opts_pretty)
 
-#  message(STATUS "${variable}=${opts_pretty}")
+  set_property (GLOBAL PROPERTY ENUM_${variable}_OPTIONS "${options}")
 
   # get the length of options
   list(LENGTH options options_len)
@@ -86,3 +97,48 @@ function(gethash target out)
   endif()
 endfunction()
 
+function(ed25519_add_library LIBNAME)
+  set(options "")
+  set(oneValueArgs "")
+  set(multiValueArgs SOURCES INCLUDES LINK_LIBRARIES COMPILE_DEFINITIONS)
+  cmake_parse_arguments(LIB_${LIBNAME} "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+  # for every sourcefile, replace relative path with absolute path to source file
+  foreach(file ${LIB_${LIBNAME}_SOURCES})
+    get_filename_component(abspath ${file} REALPATH)
+    list(APPEND    LIB_${LIBNAME}_SOURCES ${abspath})
+    list(REMOVE_AT LIB_${LIBNAME}_SOURCES 0)
+  endforeach()
+
+  foreach(j ${multiValueArgs})
+    set_property (GLOBAL PROPERTY LIB_${LIBNAME}_${j} "${LIB_${LIBNAME}_${j}}")
+  endforeach()
+
+  add_library(${LIBNAME} STATIC
+    ${LIB_${LIBNAME}_SOURCES}
+    )
+  target_link_libraries(${LIBNAME} PUBLIC
+    ${LIB_${LIBNAME}_LINK_LIBRARIES}
+    )
+  target_compile_definitions(${LIBNAME} PUBLIC
+    "${LIB_${LIBNAME}_COMPILE_DEFINITIONS}"
+    )
+  target_include_directories(${LIBNAME} PUBLIC
+    ${LIB_${LIBNAME}_INCLUDES}
+    )
+  set_target_properties(${LIBNAME} PROPERTIES
+    EXCLUDE_FROM_ALL       TRUE
+    EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin
+    ARCHIVE_OUTPUT_PATH    ${CMAKE_BINARY_DIR}
+    LIBRARY_OUTPUT_PATH    ${CMAKE_BINARY_DIR}
+    )
+endfunction(ed25519_add_library)
+
+
+function(test_build_amd64 OUT)
+  if (UNIX AND CMAKE_SYSTEM_PROCESSOR MATCHES "amd64.*|AMD64.*|x86_64.*")
+    set(${OUT} TRUE PARENT_SCOPE)
+  else()
+    set(${OUT} FALSE PARENT_SCOPE)
+  endif()
+endfunction()
