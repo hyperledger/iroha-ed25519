@@ -1,11 +1,11 @@
 #ifndef ED25519_HELPERS_HPP_
 #define ED25519_HELPERS_HPP_
 
-#include "../../../../../usr/include/c++/5/fstream"
-#include "../../../../../usr/include/c++/5/sstream"
-#include "../../../../../usr/include/c++/5/string"
-#include "../../../../../usr/include/c++/5/vector"
-#include "../include/ed25519/ed25519.h"
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include "ed25519/ed25519.h"
 #include "hexutil.hpp"
 
 // hexencoded data

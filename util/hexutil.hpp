@@ -1,10 +1,10 @@
 #ifndef PROJECT_TEST_FUNC_HPP_
 #define PROJECT_TEST_FUNC_HPP_
 
-#include "../../../../../usr/include/c++/5/iomanip"
-#include "../../../../../usr/include/c++/5/sstream"
-#include "../../../../../usr/include/c++/5/string"
-#include "../../../../../usr/include/c++/5/vector"
+#include <iomanip>
+#include <sstream>
+#include <string>
+#include <vector>
 
 inline std::string hex2bytes(const std::string &hex) {
   std::string bytes;

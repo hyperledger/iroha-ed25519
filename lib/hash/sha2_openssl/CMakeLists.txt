@@ -1,5 +1,3 @@
-find_package(OpenSSL REQUIRED)
-
 ed25519_add_library(sha2_openssl
     SOURCES
       sha256.c
