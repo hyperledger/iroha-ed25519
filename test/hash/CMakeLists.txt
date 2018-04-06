@@ -1,23 +1,15 @@
-if(OPENSSL_FOUND)
-  set(lib sha2_openssl)
-  addtest(test-${lib} sha_test.cpp)
-  target_link_libraries(test-${lib} PUBLIC
-    ${lib}
+foreach(_hash ${ED25519_SUPPORTED_LIBRARIES_HASH})
+  set(_target test-${_hash})
+  ed25519_add_test(${_target}
+    sha_test.cpp
     )
-  target_compile_definitions(test-${lib} PUBLIC
-    -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sha2.input.txt
+  ed25519_target_link_libraries(${_target}
+    ${_hash}
     )
-  unset(lib)
-endif()
 
+  get_target_property(_type "${_hash}" ED25519_HASH_TYPE)
 
-
-set(lib sha3_brainhub)
-addtest(test-${lib} sha_test.cpp)
-target_link_libraries(test-${lib} PUBLIC
-  ${lib}
-  )
-target_compile_definitions(test-${lib} PUBLIC
-  -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sha3.input.txt
-  )
-unset(lib)
+  target_compile_options(${_target} PUBLIC
+    -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/${_type}.input.txt
+    )
+endforeach()
