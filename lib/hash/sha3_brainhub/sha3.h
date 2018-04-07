@@ -2,7 +2,7 @@
 #define PROJECT_SHA3_H_
 
 #include <stddef.h>
-#include <ed25519/ed25519/crypto_types.h>
+#include <stdint.h>
 
 /* 'Words' here refers to uint64_t */
 #define SHA3_KECCAK_SPONGE_WORDS \

@@ -2,8 +2,6 @@
 #include <openssl/sha.h>
 #include <stddef.h>
 
-const unsigned int SHA_256_CONTEXT_SIZE = sizeof(SHA256_CTX);
-
 int sha256_init(void *ctx) {
   /* SHA256_Init returns 1 if succeeded, 0 otherwise */
   return SHA256_Init((SHA256_CTX *)ctx);

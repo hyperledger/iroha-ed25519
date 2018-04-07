@@ -2,8 +2,6 @@
 #include <openssl/sha.h>
 #include <stddef.h>
 
-const unsigned int SHA_512_CONTEXT_SIZE = sizeof(SHA512_CTX);
-
 int sha512_init(void *ctx) {
   /* SHA512_Init returns 1 if succeeded, 0 otherwise */
   return SHA512_Init((SHA512_CTX *)ctx);
