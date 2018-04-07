@@ -1,6 +1,7 @@
 #ifndef PROJECT_SHA3_H_
 #define PROJECT_SHA3_H_
 
+#include <stddef.h>
 #include <stdint.h>
 
 /* 'Words' here refers to uint64_t */
