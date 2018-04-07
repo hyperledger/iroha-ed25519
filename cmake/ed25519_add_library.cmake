@@ -43,6 +43,7 @@ function(ed25519_add_library LIBNAME TYPE)
       )
     target_compile_options(${LIBNAME} PUBLIC
       ${ARG_COMPILE_OPTIONS}
+      -Ded25519_EXPORTS
       )
     target_include_directories(${LIBNAME}
       PUBLIC

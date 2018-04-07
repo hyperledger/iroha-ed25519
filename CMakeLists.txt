@@ -31,6 +31,10 @@ option(TESTING         "Enable testing"      OFF)
 option(COVERAGE        "Enable coverage"     OFF)
 option(BENCHMARKING    "Enable benchmarking" OFF)
 
+include_directories(
+  ${CMAKE_BINARY_DIR}/
+  ${CMAKE_SOURCE_DIR}/include/
+)
 
 include(GNUInstallDirs)
 include(GenerateExportHeader)
@@ -135,8 +139,6 @@ ed25519_merge_libraries(ed25519 ${BUILD}
     ${EDIMPL}
     ${HASH}
     ${RANDOM}
-  COMPILE_OPTIONS
-    -Ded25519_EXPORTS=1
   VERSION
     VERSION-${SOVERSION}-${EDIMPL}-${HASH}-${RANDOM}-${BUILD}-${CMAKE_BUILD_TYPE}
   )

@@ -23,8 +23,6 @@ function(ed25519_target_link_libraries _target)
     message(FATAL_ERROR "${_target} is not target")
   endif()
 
-
-
   get_target_property(_type ${_target} TYPE)
   if(_type STREQUAL "OBJECT_LIBRARY")
     if(ARGN) # target_link_libraries may be empty, in this case ARGN will be empty

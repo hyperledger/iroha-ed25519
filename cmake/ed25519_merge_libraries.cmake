@@ -10,7 +10,7 @@ function(ed25519_merge_libraries TARGET LIBTYPE)
     )
 
   # create dummy C source file
-  set(${TARGET}_SRC ${CMAKE_BINARY_DIR}/${TARGET}_dummy.c)
+  set(${TARGET}_SRC ${CMAKE_BINARY_DIR}/dummy/${TARGET}_dummy.c)
   configure_file_content("const char* libed25519_version = \"${ARG_VERSION}\";" ${${TARGET}_SRC})
 
   # define target
@@ -22,11 +22,11 @@ function(ed25519_merge_libraries TARGET LIBTYPE)
     )
   target_compile_options(${TARGET} PUBLIC
     ${ARG_COMPILE_OPTIONS}
+    -Ded25519_EXPORTS
     )
   target_include_directories(${TARGET}
     INTERFACE
       $<INSTALL_INTERFACE:include>
-      $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/;${CMAKE_SOURCE_DIR}/include/>
     )
 
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -56,6 +56,6 @@ function(ed25519_merge_libraries TARGET LIBTYPE)
   set_target_properties(${TARGET} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
     )
 endfunction()
