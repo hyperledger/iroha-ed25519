@@ -31,7 +31,7 @@ typedef struct {
  * @param[out] pk allocated buffer of ed25519_pubkey_SIZE
  * @return 0 if failed, non-0 otherwise
  */
-int ed25519_create_keypair(private_key_t* sk, public_key_t* pk) ED25519_EXPORT;
+ED25519_EXPORT int ed25519_create_keypair(private_key_t* sk, public_key_t* pk);
 
 /**
  * @brief Creates a public key from given private key. For every private key
@@ -42,8 +42,8 @@ int ed25519_create_keypair(private_key_t* sk, public_key_t* pk) ED25519_EXPORT;
  * @param[in] sk allocated buffer of ed25519_privkey_SIZE
  * @param[out] pk allocated buffer of ed25519_pubkey_SIZE
  */
-void ed25519_derive_public_key(const private_key_t* sk,
-                               public_key_t* pk) ED25519_EXPORT;
+ED25519_EXPORT void ed25519_derive_public_key(const private_key_t* sk,
+                               public_key_t* pk);
 
 /**
  * @brief Sign msg with keypair {pk, sk}
@@ -53,9 +53,9 @@ void ed25519_derive_public_key(const private_key_t* sk,
  * @param pk[in] public key
  * @param sk[in] secret (private) key
  */
-void ed25519_sign(signature_t* sig, const unsigned char* msg,
+ED25519_EXPORT void ed25519_sign(signature_t* sig, const unsigned char* msg,
                   unsigned long long msglen, const public_key_t* pk,
-                  const private_key_t* sk) ED25519_EXPORT;
+                  const private_key_t* sk);
 
 /**
  * Verifies given sig over given msg with public key pk
@@ -65,9 +65,9 @@ void ed25519_sign(signature_t* sig, const unsigned char* msg,
  * @param pk[in] public key
  * @return 1 if signature is valid, 0 otherwise
  */
-int ed25519_verify(const signature_t* sig, const unsigned char* msg,
+ED25519_EXPORT int ed25519_verify(const signature_t* sig, const unsigned char* msg,
                    unsigned long long msglen,
-                   const public_key_t* pk) ED25519_EXPORT;
+                   const public_key_t* pk);
 
 #if defined(__cplusplus)
 }
