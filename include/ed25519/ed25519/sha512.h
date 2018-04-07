@@ -8,7 +8,7 @@ extern "C" {
 #define SHA_512_SIZE 64  // bytes
 
 /* implementation-defined sha context size in bytes. */
-extern const unsigned int SHA_512_CONTEXT_SIZE;
+#include "ed25519/ed25519/config_sha512.h"
 
 /* context is a block of memory of exactly SHA_512_CONTEXT_SIZE bytes */
 /* example: unsigned char context[SHA_512_CONTEXT_SIZE]; */
