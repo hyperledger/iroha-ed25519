@@ -6,12 +6,14 @@ set(SOVERSION "${ED25519_MAJOR_VERSION}.${ED25519_MINOR_VERSION}.${ED25519_PATCH
 project(ed25519 VERSION ${SOVERSION} LANGUAGES C CXX)
 
 SET(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-SET(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -g -Wextra -O0 -fdiagnostics-color")
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
-SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -funroll-loops -fomit-frame-pointer")
-SET(CMAKE_C_FLAGS_DEBUG   "${CMAKE_C_FLAGS_DEBUG} -g -Wextra -O0 -fdiagnostics-color ")
+if(NOT WIN32)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
+  SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+  SET(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -g -Wextra -O0 -fdiagnostics-color")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+  SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -funroll-loops -fomit-frame-pointer")
+  SET(CMAKE_C_FLAGS_DEBUG   "${CMAKE_C_FLAGS_DEBUG} -g -Wextra -O0 -fdiagnostics-color ")
+endif()
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
@@ -40,8 +42,12 @@ if(NOT HASH)
   set(HASH   "sha3_brainhub")
 endif()
 if(NOT RANDOM)
-  # https://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers/
-  set(RANDOM "dev_urandom")
+  if(WIN32)
+    set(RANDOM "bcryptgenrandom")
+  else()
+    # https://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers/
+    set(RANDOM "dev_urandom")
+  endif()
 endif()
 if(NOT BUILD)
   set(BUILD  "SHARED")
@@ -61,6 +67,7 @@ ENUM(RANDOM "${RANDOM}" "RNG implementation"
     rand_openssl
     dev_random
     dev_urandom
+    bcryptgenrandom
     )
 ENUM(BUILD "${BUILD}" "library build type"
     SHARED
