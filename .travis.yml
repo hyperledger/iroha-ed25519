@@ -1,4 +1,3 @@
-
 sudo: true
 
 language: cpp
@@ -44,9 +43,15 @@ matrix:
 
 
 script:
-  - mkdir build
-  - cd build
+  # build and test ed25519
+  - mkdir build && cd build
   - cmake .. -DTESTING=ON
   - make -j2 -k
   - ctest
-  
+  - sudo make install
+  # build and execute example
+  - cd ../example/sign-verify
+  - mkdir build && cd build
+  - cmake .. -DCMAKE_BUILD_TYPE=Release
+  - make
+  - ./test1
