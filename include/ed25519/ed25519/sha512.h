@@ -10,7 +10,7 @@ extern "C" {
 #define SHA_512_SIZE 64  // bytes
 
 /* implementation-defined sha context size in bytes. */
-extern const unsigned int SHA_512_CONTEXT_SIZE ED25519_EXPORT;
+ED25519_EXPORT extern const unsigned int SHA_512_CONTEXT_SIZE;
 
 /* context is a block of memory of exactly SHA_512_CONTEXT_SIZE bytes */
 /* example: unsigned char context[SHA_512_CONTEXT_SIZE]; */
@@ -21,7 +21,7 @@ extern const unsigned int SHA_512_CONTEXT_SIZE ED25519_EXPORT;
  * @return 0 if error, non-0 otherwise.
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512_init(void *context) ED25519_EXPORT;
+ED25519_EXPORT extern int sha512_init(void *context);
 
 /**
  * Updates hash state with given buffer
@@ -31,8 +31,8 @@ extern int sha512_init(void *context) ED25519_EXPORT;
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512_update(void *context, const unsigned char *in,
-                         unsigned long long inlen) ED25519_EXPORT;
+ED25519_EXPORT extern int sha512_update(void *context, const unsigned char *in,
+                                        unsigned long long inlen);
 
 /**
  * Finish hash calculation. Use this to store hash in output buffer (out).
@@ -41,7 +41,7 @@ extern int sha512_update(void *context, const unsigned char *in,
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512_final(void *context, unsigned char *out) ED25519_EXPORT;
+ED25519_EXPORT extern int sha512_final(void *context, unsigned char *out);
 
 /**
  * Inline hash calculation of sha512.
@@ -51,8 +51,8 @@ extern int sha512_final(void *context, unsigned char *out) ED25519_EXPORT;
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha512(unsigned char *out, const unsigned char *message,
-                  unsigned long long message_len) ED25519_EXPORT;
+ED25519_EXPORT extern int sha512(unsigned char *out, const unsigned char *message,
+                                 unsigned long long message_len);
 
 #if defined(__cplusplus)
 }

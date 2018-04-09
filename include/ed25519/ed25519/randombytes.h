@@ -14,7 +14,7 @@ extern "C" {
  * @return 0 if failed, non-0 otherwise
  * @note You should always check return code of randombytes
  */
-extern int randombytes(unsigned char *p, int len) ED25519_EXPORT;
+ED25519_EXPORT extern int randombytes(unsigned char *p, int len);
 
 #if defined(__cplusplus)
 }
