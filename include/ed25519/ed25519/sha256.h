@@ -21,7 +21,7 @@ ED25519_EXPORT extern const unsigned int SHA_256_CONTEXT_SIZE;
  * @return 0 if error, non-0 otherwise.
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha256_init(void *context) ED25519_EXPORT;
+ED25519_EXPORT extern int sha256_init(void *context);
 
 /**
  * Updates hash state with given buffer
