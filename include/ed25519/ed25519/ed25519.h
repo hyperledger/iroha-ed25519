@@ -9,13 +9,21 @@ extern "C" {
 #define ed25519_privkey_SIZE 32
 #define ed25519_signature_SIZE 64
 
+#include "ed25519_export.h"
 
-typedef struct { unsigned char data[ed25519_signature_SIZE]; } signature_t;
-typedef struct { unsigned char data[ed25519_pubkey_SIZE]; } public_key_t;
-typedef struct { unsigned char data[ed25519_privkey_SIZE]; } private_key_t;
+typedef struct {
+  unsigned char data[ed25519_signature_SIZE];
+} signature_t;
+
+typedef struct {
+  unsigned char data[ed25519_pubkey_SIZE];
+} public_key_t;
+
+typedef struct {
+  unsigned char data[ed25519_privkey_SIZE];
+} private_key_t;
 
 /* type safe interface methods for ed25519 */
-
 
 /**
  * @brief Generates a keypair. Depends on randombytes.h random generator.
@@ -23,7 +31,7 @@ typedef struct { unsigned char data[ed25519_privkey_SIZE]; } private_key_t;
  * @param[out] pk allocated buffer of ed25519_pubkey_SIZE
  * @return 0 if failed, non-0 otherwise
  */
-int ed25519_create_keypair(private_key_t* sk, public_key_t* pk);
+ED25519_EXPORT int ed25519_create_keypair(private_key_t* sk, public_key_t* pk);
 
 /**
  * @brief Creates a public key from given private key. For every private key
@@ -34,7 +42,8 @@ int ed25519_create_keypair(private_key_t* sk, public_key_t* pk);
  * @param[in] sk allocated buffer of ed25519_privkey_SIZE
  * @param[out] pk allocated buffer of ed25519_pubkey_SIZE
  */
-void ed25519_derive_public_key(const private_key_t* sk, public_key_t* pk);
+ED25519_EXPORT void ed25519_derive_public_key(const private_key_t* sk,
+                               public_key_t* pk);
 
 /**
  * @brief Sign msg with keypair {pk, sk}
@@ -44,7 +53,7 @@ void ed25519_derive_public_key(const private_key_t* sk, public_key_t* pk);
  * @param pk[in] public key
  * @param sk[in] secret (private) key
  */
-void ed25519_sign(signature_t* sig, const unsigned char* msg,
+ED25519_EXPORT void ed25519_sign(signature_t* sig, const unsigned char* msg,
                   unsigned long long msglen, const public_key_t* pk,
                   const private_key_t* sk);
 
@@ -56,8 +65,9 @@ void ed25519_sign(signature_t* sig, const unsigned char* msg,
  * @param pk[in] public key
  * @return 1 if signature is valid, 0 otherwise
  */
-int ed25519_verify(const signature_t* sig, const unsigned char* msg,
-                   unsigned long long msglen, const public_key_t* pk);
+ED25519_EXPORT int ed25519_verify(const signature_t* sig, const unsigned char* msg,
+                   unsigned long long msglen,
+                   const public_key_t* pk);
 
 #if defined(__cplusplus)
 }

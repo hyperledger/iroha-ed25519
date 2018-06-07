@@ -1,0 +1,7 @@
+function(ed25519_init)
+  set_property (GLOBAL PROPERTY ED25519_TYPES "${ARGN}")
+  foreach(type ${ARGN})
+    set(ED25519_KNOWN_LIBRARIES_${TYPE} PARENT_SCOPE)
+    set(ED25519_SUPPORTED_LIBRARIES_${TYPE} PARENT_SCOPE)
+  endforeach()
+endfunction(ed25519_init)

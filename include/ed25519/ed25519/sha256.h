@@ -5,10 +5,12 @@
 extern "C" {
 #endif
 
+#include "ed25519_export.h"
+
 #define SHA_256_SIZE 32  // bytes
 
 /* implementation-defined sha context size in bytes. */
-extern const unsigned int SHA_256_CONTEXT_SIZE;
+ED25519_EXPORT extern const unsigned int SHA_256_CONTEXT_SIZE;
 
 /* context is a block of memory of exactly SHA_256_CONTEXT_SIZE bytes */
 /* example: unsigned char context[SHA_256_CONTEXT_SIZE]; */
@@ -19,7 +21,7 @@ extern const unsigned int SHA_256_CONTEXT_SIZE;
  * @return 0 if error, non-0 otherwise.
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha256_init(void *context);
+ED25519_EXPORT extern int sha256_init(void *context);
 
 /**
  * Updates hash state with given buffer
@@ -29,8 +31,8 @@ extern int sha256_init(void *context);
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha256_update(void *context, const unsigned char *in,
-                         unsigned long long inlen);
+ED25519_EXPORT extern int sha256_update(void *context, const unsigned char *in,
+                                        unsigned long long inlen);
 
 /**
  * Finish hash calculation. Use this to store hash in output buffer (out).
@@ -39,7 +41,7 @@ extern int sha256_update(void *context, const unsigned char *in,
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha256_final(void *context, unsigned char *out);
+ED25519_EXPORT extern int sha256_final(void *context, unsigned char *out);
 
 /**
  * Inline hash calculation of sha256.
@@ -49,8 +51,8 @@ extern int sha256_final(void *context, unsigned char *out);
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-extern int sha256(unsigned char *out, const unsigned char *message,
-                  unsigned long long message_len);
+ED25519_EXPORT extern int sha256(unsigned char *out, const unsigned char *message,
+                                 unsigned long long message_len);
 
 #if defined(__cplusplus)
 }

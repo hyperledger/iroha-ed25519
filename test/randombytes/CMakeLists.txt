@@ -1,10 +1,9 @@
-macro(rngtest name)
-  addtest(test-${name} random.cpp)
-  target_link_libraries(test-${name} PUBLIC
-    ${name}
+foreach(_random ${ED25519_SUPPORTED_LIBRARIES_RANDOM})
+  set(_target test-${_random})
+  ed25519_add_test(${_target}
+    random.cpp
     )
-endmacro()
-
-rngtest(rand_openssl)
-rngtest(dev_random)
-rngtest(dev_urandom)
+  ed25519_target_link_libraries(${_target}
+    ${_random}
+    )
+endforeach()
