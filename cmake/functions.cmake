@@ -86,7 +86,7 @@ macro(configure_file_content content file)
   set(CMAKE_CONFIGURABLE_FILE_CONTENT
     "${content}\n")
   configure_file(
-    ${CMAKE_SOURCE_DIR}/cmake/configurable_file_content.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configurable_file_content.in
     ${file}
     @ONLY)
 endmacro()
