@@ -9,9 +9,12 @@ int randombytes(unsigned char *p, int len) {
   } else {
     ssize_t result = read(source, p, len);
     if (result < 0) {
+      close(source);
       return ED25519_ERROR; /* something went wrong */
     }
   }
+
+  close(source);
 
   return ED25519_SUCCESS;
 }
