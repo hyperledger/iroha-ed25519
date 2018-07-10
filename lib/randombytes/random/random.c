@@ -13,6 +13,7 @@ int randombytes(unsigned char *p, int len) {
     while (completed < len) {
       ssize_t result = read(source, p + completed, len - completed);
       if (result < 0) {
+        close(source);
         return ED25519_ERROR;
       }
       completed += result;
