@@ -22,7 +22,6 @@ platform:
 
 configuration:
   - Release
-  - Debug
 
 build_script:
   # make python available in PATH, and print its version
