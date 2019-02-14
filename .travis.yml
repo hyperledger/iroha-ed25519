@@ -45,12 +45,14 @@ matrix:
 script:
   - export CC=$_CC
   - export CXX=$_CXX
+  -
   # build and test ed25519
   - mkdir build && cd build
   - cmake .. -DTESTING=ON
   - make -j2 -k
   - ctest
   - sudo make install
+  -
   # build and execute example
   - cd ../example/sign-verify
   - mkdir build && cd build

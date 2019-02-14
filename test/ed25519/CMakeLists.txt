@@ -22,10 +22,12 @@ foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
         ed25519-${_target}
         )
 
-      get_target_property(_type "${_hash}" ED25519_HASH_TYPE)
-      target_compile_definitions(test-${_target} PRIVATE
-        -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.${_type}.txt
-        )
+      if(TARGET ${_hash})
+        get_target_property(_type "${_hash}" ED25519_HASH_TYPE)
+        target_compile_definitions(test-${_target} PRIVATE
+          -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.${_type}.txt
+          )
+      endif()
     endforeach()
   endforeach()
 endforeach()

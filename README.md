@@ -29,6 +29,7 @@ During CMake time, users are able to choose any of these implementations using c
     - `rand_openssl`
     - `dev_urandom` - default
     - `dev_random`
+    - `bcryptgenrandom` (windows only)
 - `BUILD`
     - `STATIC`
     - `SHARED` - build ed25519 library as shared library (default)
@@ -37,7 +38,7 @@ During CMake time, users are able to choose any of these implementations using c
 We want to build shared library with fast amd64 implementation, SHA3 and PRNG, which reads entropy from `/dev/urandom`:
 
 ```bash
-$ cmake .. -DAMD64_OPTIMIZED=ON -DEDIMPL=amd64-64-24k -DHASH=sha3_brainhub -DRANDOM=dev_urandom -DBUILD=SHARED
+$ cmake .. -DEDIMPL=amd64-64-24k-pic -DHASH=sha3_brainhub -DRANDOM=dev_urandom -DBUILD=SHARED
 -- Target cppcheck enabled
 -- Target gcovr enabled
 -- EDIMPL=amd64-64-24k is selected (Ed25519 implementation)
@@ -78,7 +79,8 @@ Repository consists of a single C file, which was adopted to be included in a pr
 
 To generate keypair ed25519 needs a source of randomness (entropy).
 
-This repository offers 3 implementations:
+This repository offers 4 implementations:
 - `rand_openssl` uses RAND_bytes from openssl
 - `dev_urandom` reads entropy from `/dev/urandom`
 - `dev_random` reads entropy from `/dev/random` (blocking call, uses busy waiting when user asks for more entropy than device can offer)
+- `bcryptgenrandom` reads entropy from windows preferred entropy source.

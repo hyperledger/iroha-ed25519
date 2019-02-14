@@ -1,7 +1,22 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(ED25519_MAJOR_VERSION 1)
-set(ED25519_MINOR_VERSION 3)
+
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+endif(CCACHE_FOUND)
+
+
+include("cmake/Hunter/init.cmake")
+HunterGate(
+  URL "https://github.com/ruslo/hunter/archive/v0.23.105.tar.gz"
+  SHA1 "1c7aaffc90d4898f0b55d03b77deb890b2aa0a2b"
+)
+
+
+set(ED25519_MAJOR_VERSION 2)
+set(ED25519_MINOR_VERSION 0)
 set(ED25519_PATCH_VERSION 0)
 set(SOVERSION "${ED25519_MAJOR_VERSION}.${ED25519_MINOR_VERSION}.${ED25519_PATCH_VERSION}")
 project(ed25519 VERSION ${SOVERSION} LANGUAGES C CXX)
@@ -13,7 +28,6 @@ set(CMAKE_C_VISIBILITY_PRESET          hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET        hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN    TRUE)
 set(CMAKE_EXPORT_COMPILE_COMMANDS      ON)
-set(CMAKE_MODULE_PATH                  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 
 set(CMAKE_C_STANDARD                   11)    # force std=c11
 set(CMAKE_C_STANDARD_REQUIRED          ON)
@@ -22,10 +36,6 @@ set(CMAKE_C_EXTENSIONS                 OFF)
 set(CMAKE_CXX_STANDARD                 11)    # force std=c++11
 set(CMAKE_CXX_STANDARD_REQUIRED        ON)
 set(CMAKE_CXX_EXTENSIONS               OFF)
-
-#add_compile_options(-Wall)
-#add_compile_options(-Wextra)
-#add_compile_options(-Wpedantic)
 
 option(TESTING         "Enable testing"      OFF)
 option(COVERAGE        "Enable coverage"     OFF)
@@ -61,12 +71,10 @@ ed25519_export(
     sha512_final
     sha512_update
     sha512
-    SHA_512_CONTEXT_SIZE
     sha256_init
     sha256_final
     sha256_update
     sha256
-    SHA_256_CONTEXT_SIZE
     randombytes
 )
 
@@ -82,10 +90,7 @@ if(NOT RANDOM)
   set(RANDOM "dev_urandom")
 endif()
 if(NOT BUILD)
-  set(BUILD  "SHARED")
-endif()
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE  "Release")
+  set(BUILD  "STATIC")
 endif()
 
 
@@ -109,14 +114,11 @@ ENUM(RANDOM "${RANDOM}" "RNG implementation"
   rand_openssl
   dev_random
   dev_urandom
+  bcryptgenrandom
   )
 ENUM(BUILD "${BUILD}" "library build type"
   SHARED
   STATIC
-  )
-ENUM(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}" "cmake build type"
-  Release
-  Debug
   )
 
 
@@ -174,7 +176,7 @@ install(
   )
 install(
   EXPORT ed25519Config
-  DESTINATION share/ed25519/cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ed25519
   )
 export(
   TARGETS ed25519

@@ -1,8 +1,8 @@
 function(ed25519_add_test test_name)
   add_executable(${test_name} ${ARGN})
   target_link_libraries(${test_name}
-    gtest
-    gmock
+    GTest::main
+    GTest::gtest
     )
   add_test(
     NAME    ${test_name}
