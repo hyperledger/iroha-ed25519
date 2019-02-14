@@ -67,10 +67,9 @@ $ cmake .. -DEDIMPL=amd64-64-24k-pic -DHASH=sha3_brainhub -DRANDOM=dev_urandom -
 
 - `ref10` - portable but relatively slow C implementation, originally copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html).
 Its API was redesigned to separate signature data from the *signed message* content.
-- `amd64-64-24k` - fast (4x ref10) but non-portable C and ASM implementation, only for AMD64.
-Copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html).
-Adopted to be included as a module.
-- `amd64-64-24k-pic` - same implementation as `amd64-64-24k`, but has Position Independent Code (`-fPIC`) fixes by @l4l.
+- `amd64-64-24k-pic` - fast (4x ref10) but non-portable C and ASM implementation, only for AMD64.
+                       Copied from [supercop-20171020](http://bench.cr.yp.to/supercop.html).
+                       Adopted to be included as a module. Has Position Independent Code (`-fPIC`) fixes by @l4l.
 
 ## SHA512 has function as a dependency of ed25519
 
