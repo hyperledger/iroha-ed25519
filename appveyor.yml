@@ -33,8 +33,3 @@ build_script:
   # build and test library
   - cmake -G "Visual Studio 15 2017 Win64" . -DCMAKE_BUILD_TYPE=%CONFIGURATIOIN%
   - cmake --build . --config %CONFIGURATION% -- %MSBUILD_ARGS%
-  - cmake --build . --config %CONFIGURATION% --target install
-
-  # build and run example
-  - cmake -G "Visual Studio 15 2017 Win64" example/sign-verify -DCMAKE_BUILD_TYPE=%CONFIGURATIOIN%
-  - cmake --build example/sign-verify --config %CONFIGURATION%
