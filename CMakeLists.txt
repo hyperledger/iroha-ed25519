@@ -110,6 +110,7 @@ ENUM(EDIMPL "${EDIMPL}" "Ed25519 implementation"
   )
 ENUM(HASH "${HASH}" "SHA implementation"
   sha2_openssl
+  sha2_sphlib
   sha3_brainhub
   )
 ENUM(RANDOM "${RANDOM}" "RNG implementation"

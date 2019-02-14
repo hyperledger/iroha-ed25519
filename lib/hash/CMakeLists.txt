@@ -1,2 +1,3 @@
 add_subdirectory(sha2_openssl)
+add_subdirectory(sha2_sphlib)
 add_subdirectory(sha3_brainhub)

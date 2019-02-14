@@ -23,6 +23,7 @@ During CMake time, users are able to choose any of these implementations using c
     - `amd64-64-24k-pic` - optimized C and ASM implementation, works only on Linux amd64. Has fixes in ASM files, to allow *position independent code* (`-fPIC`) builds.
 - `HASH`
     - `sha2_openssl`
+    - `sha2_sphlib`
     - `sha3_brainhub` - default
 - `RANDOM`
     - `rand_openssl`
@@ -74,6 +75,7 @@ Its API was redesigned to separate signature data from the *signed message* cont
 ## SHA512 has function as a dependency of ed25519
 
 - `sha2_openssl` - implementation of FIPS 180-4 SHA2 512 hash function, which uses openssl underneath
+- `sha2_sphlib` - implementation of FIPS 180-4 SHA2 512 hash function, which was taken from [supercop-20190110](http://bench.cr.yp.to/supercop.html)
 - `sha3_brainhub` - implementation of FIPS 202 SHA3 512 hash function taken from [brainhub repository](https://github.com/brainhub/SHA3IUF).
 Repository consists of a single C file, which was adopted to be included in a project as a module.
 

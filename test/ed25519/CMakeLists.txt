@@ -22,6 +22,8 @@ foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
         target_compile_definitions(test-${_target} PRIVATE
           -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.${_type}.txt
           )
+      else()
+        continue()
       endif()
 
     endforeach()

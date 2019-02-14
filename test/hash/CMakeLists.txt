@@ -12,5 +12,7 @@ foreach (_hash ${ED25519_SUPPORTED_LIBRARIES_HASH})
     target_compile_options(${_target} PUBLIC
       -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/${_type}.input.txt
       )
+  else()
+    continue()
   endif ()
 endforeach ()
