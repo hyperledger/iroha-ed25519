@@ -7,7 +7,7 @@ extern "C" {
 
 #include "ed25519_export.h"
 
-typedef struct ED25519_EXPORT sha_context_t {
+typedef struct sha_context_t {
   unsigned char opaque[224]; // size of context in bytes
 } sha_context;
 
