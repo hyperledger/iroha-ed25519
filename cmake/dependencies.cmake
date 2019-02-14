@@ -9,5 +9,3 @@ if(BENCHMARKING)
   hunter_add_package(benchmark)
   find_package(benchmark CONFIG REQUIRED)
 endif()
-
-find_package(OpenSSL)
