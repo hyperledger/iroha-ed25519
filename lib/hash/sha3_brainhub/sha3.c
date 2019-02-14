@@ -39,9 +39,6 @@
  * SHA3_USE_KECCAK only changes one line of code in Finalize.
  */
 
-const unsigned int SHA_256_CONTEXT_SIZE = sizeof(sha3_context);
-const unsigned int SHA_512_CONTEXT_SIZE = sizeof(sha3_context);
-
 #if defined(_MSC_VER)
 #define SHA3_CONST(x) x
 #else
