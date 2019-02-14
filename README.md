@@ -20,8 +20,7 @@ During CMake time, users are able to choose any of these implementations using c
 
 - `EDIMPL`
     - `ref10` - portable C implementation.
-    - `amd64-64-24k` - optimized C and ASM implementation, works only on Linux amd64. This implementation can be selected only for `BUILD=STATIC`.
-    - `amd64-64-24k-pic` - same as `amd64-64-24k`, but has fixes in ASM files, to allow *position independent code* (`-fPIC`) builds.
+    - `amd64-64-24k-pic` - optimized C and ASM implementation, works only on Linux amd64. Has fixes in ASM files, to allow *position independent code* (`-fPIC`) builds.
 - `HASH`
     - `sha2_openssl`
     - `sha3_brainhub` - default
@@ -38,16 +37,20 @@ During CMake time, users are able to choose any of these implementations using c
 We want to build shared library with fast amd64 implementation, SHA3 and PRNG, which reads entropy from `/dev/urandom`:
 
 ```bash
-$ cmake .. -DEDIMPL=amd64-64-24k-pic -DHASH=sha3_brainhub -DRANDOM=dev_urandom -DBUILD=SHARED
--- Target cppcheck enabled
--- Target gcovr enabled
--- EDIMPL=amd64-64-24k is selected (Ed25519 implementation)
+$ cmake .. -DEDIMPL=amd64-64-24k-pic -DHASH=sha3_brainhub -DRANDOM=dev_urandom -DBUILD=SHARED                   bogdan@Bogdans-MacBook-Pro
+-- [hunter] Calculating Toolchain-SHA1
+-- [hunter] Calculating Config-SHA1
+-- [hunter] HUNTER_ROOT: /Users/bogdan/.hunter
+-- [hunter] [ Hunter-ID: 1c7aaff | Toolchain-ID: 9e23df5 | Config-ID: 997ea55 ]
+-- [hunter] GTEST_ROOT: /Users/bogdan/.hunter/_Base/1c7aaff/9e23df5/997ea55/Install (ver.: 1.8.0-hunter-p11)
+-- EDIMPL=amd64-64-24k-pic is selected (Ed25519 implementation)
 -- HASH=sha3_brainhub is selected (SHA implementation)
 -- RANDOM=dev_urandom is selected (RNG implementation)
 -- BUILD=SHARED is selected (library build type)
+-- [ed25519] Target RANDOM=rand_bcryptgenrandom is not supported on your platform
 -- Configuring done
 -- Generating done
--- Build files have been written to: ...
+-- Build files have been written to: /Users/bogdan/tools/iroha-ed25519/build
 ```
 
 **Note**: only those targets (including tests) will be built, which are specified in `EDIMPL`, `HASH`, `RANDOM` variables.

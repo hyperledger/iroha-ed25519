@@ -4,14 +4,14 @@
 #include "ge25519.h"
 #include <ed25519/ed25519/crypto_verify.h>
 
-int ed25519_create_keypair(private_key_t *sk, public_key_t *pk) {
+ED25519_EXPORT int ed25519_create_keypair(private_key_t *sk, public_key_t *pk) {
   if (!randombytes(sk->data, ed25519_privkey_SIZE))
     return ED25519_ERROR;            /* RNG failed, not enough entropy */
   ed25519_derive_public_key(sk, pk); /* fill with data */
   return ED25519_SUCCESS;            /* ok */
 }
 
-void ed25519_derive_public_key(const private_key_t *sk, public_key_t *pk) {
+ED25519_EXPORT void ed25519_derive_public_key(const private_key_t *sk, public_key_t *pk) {
   unsigned char az[64];
   sc25519 scsk;
   ge25519 gepk;
@@ -27,7 +27,7 @@ void ed25519_derive_public_key(const private_key_t *sk, public_key_t *pk) {
   ge25519_pack(pk->data, &gepk);
 }
 
-void ed25519_sign(signature_t *sig, const unsigned char *msg,
+ED25519_EXPORT void ed25519_sign(signature_t *sig, const unsigned char *msg,
                   unsigned long long msglen, const public_key_t *pk,
                   const private_key_t *sk) {
   sha_context ctx;
@@ -75,7 +75,7 @@ void ed25519_sign(signature_t *sig, const unsigned char *msg,
   /* sig: [32 bytes R | 32 bytes S] */
 }
 
-int ed25519_verify(const signature_t *sig, const unsigned char *msg,
+ED25519_EXPORT int ed25519_verify(const signature_t *sig, const unsigned char *msg,
                    unsigned long long msglen, const public_key_t *pk) {
   sha_context ctx;
   unsigned char pkcopy[32];

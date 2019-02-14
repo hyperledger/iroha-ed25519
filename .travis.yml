@@ -3,6 +3,8 @@ sudo: true
 language: cpp
 cache:
   apt: true
+  directories:
+    - "$HOME/.hunter"
 
 matrix:
   include:

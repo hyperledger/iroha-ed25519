@@ -26,7 +26,7 @@ enable_language(ASM)
 set(CMAKE_POSITION_INDEPENDENT_CODE    TRUE)
 set(CMAKE_C_VISIBILITY_PRESET          hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET        hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN    TRUE)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN    1)
 set(CMAKE_EXPORT_COMPILE_COMMANDS      ON)
 
 set(CMAKE_C_STANDARD                   11)    # force std=c11
@@ -47,7 +47,6 @@ include_directories(
 )
 
 include(GNUInstallDirs)
-include(GenerateExportHeader)
 include(cmake/dependencies.cmake)
 include(cmake/functions.cmake)
 include(cmake/ed25519_init.cmake)
@@ -121,19 +120,7 @@ ENUM(BUILD "${BUILD}" "library build type"
   STATIC
   )
 
-
-if(BUILD STREQUAL "SHARED" AND EDIMPL STREQUAL "amd64-64-24k")
-  message(FATAL_ERROR
-    "EDIMPL=amd64-64-24k implementation has no PIC fixes, "
-    "therefore SHARED library can not be built. "
-    "Use EDIMPL=amd64-64-24k-pic or BUILD=STATIC")
-endif()
-
-
 add_subdirectory(lib)
-#if(BENCHMARKING)
-#  add_subdirectory(benchmark)
-#endif()
 
 
 ed25519_merge_libraries(ed25519 ${BUILD}
@@ -144,14 +131,6 @@ ed25519_merge_libraries(ed25519 ${BUILD}
   VERSION
     VERSION-${SOVERSION}-${EDIMPL}-${HASH}-${RANDOM}-${BUILD}-${CMAKE_BUILD_TYPE}
   )
-set(_export_file ${CMAKE_BINARY_DIR}/ed25519_export.h)
-generate_export_header(ed25519
-  EXPORT_FILE_NAME ${_export_file}
-  )
-install(
-  FILES ${_export_file}
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ed25519/ed25519/
-)
 set_target_properties(ed25519 PROPERTIES
   VERSION   ${SOVERSION}
   SOVERSION ${SOVERSION}

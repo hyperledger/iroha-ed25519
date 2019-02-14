@@ -3,11 +3,6 @@ foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
   foreach(_hash ${ED25519_SUPPORTED_LIBRARIES_HASH})
     foreach(_build STATIC SHARED)
 
-      if(_build MATCHES SHARED AND _edimpl MATCHES amd64-64-24k)
-        # these builds are incompatible and will fail in any circumstance
-        continue()
-      endif()
-
       set(_target ${_edimpl}-${_hash}-${_random}-${_build})
       ed25519_merge_libraries(ed25519-${_target} ${_build}
         LIBRARIES
@@ -28,6 +23,7 @@ foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
           -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.${_type}.txt
           )
       endif()
+
     endforeach()
   endforeach()
 endforeach()

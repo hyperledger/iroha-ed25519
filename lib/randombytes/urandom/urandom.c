@@ -3,7 +3,7 @@
 #include <fcntl.h>   // for open
 #include <unistd.h>  // for read, ssize_t
 
-int randombytes(unsigned char *p, int len) {
+ED25519_EXPORT int randombytes(unsigned char *p, int len) {
   int source = open("/dev/urandom", O_RDONLY);
   if (source < 0) {
     return ED25519_ERROR; /* something went wrong */

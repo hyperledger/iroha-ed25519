@@ -4,7 +4,7 @@
 #include <bcrypt.h>
 #pragma comment(lib, "bcrypt.lib")
 
-int randombytes(unsigned char *p, int len) {
+ED25519_EXPORT int randombytes(unsigned char *p, int len) {
   return BCRYPT_SUCCESS(
       BCryptGenRandom(NULL, p, len, BCRYPT_USE_SYSTEM_PREFERRED_RNG));
 }
