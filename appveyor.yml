@@ -28,7 +28,7 @@ build_script:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - python -V
   - pip -V
-  - pip install requests
+  - pip install requests gitpython
 
   # build and test library
   - cmake -G "Visual Studio 15 2017 Win64" . -DTESTING=ON -DCMAKE_BUILD_TYPE=%CONFIGURATIOIN%
