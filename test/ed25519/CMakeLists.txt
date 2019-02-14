@@ -1,4 +1,4 @@
-set(_random dev_urandom)
+set(_random ${RANDOM})
 foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
   foreach(_hash ${ED25519_SUPPORTED_LIBRARIES_HASH})
     foreach(_build STATIC SHARED)
