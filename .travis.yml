@@ -1,8 +1,16 @@
 sudo: true
 
 language: cpp
+
 cache:
   apt: true
+  directories:
+    - "$HOME/.hunter"
+
+env:
+  global:
+    - secure: hWKJ4JkKSNAK/CUBydgj2BROLx2xvvz+uCRNHhUspEoN+wKgMbo+rAJQoLaRBjWNwV/a3Cwu11vyrOwxSa0Lfq/SV59AyFhZt/gJntKkj2EYFO++tmKlwDGmnYMEvp/t/SpipMBgTOUQ+IvVGllfK+ExdaRgugJKXcfRv6qaMcHPV5VNEq0BbvwYvVJxcSx1kThQzroxE3T6hazGp+u8OuzGyWOQB7qsZuOk1nB2mDN3GuTREwWpT/+PwDN5uAAwWVUMXsr1Y12fqWbDu4mOZZtUzlAuzJrKB85m8tmPAUWNmz237T+9NAgXSn6vIeeoZeFp2h4E3F9vevWFrnah+uI40Em+E6FbevFOl7NKMiRUGiM7egHDsqAEED0A3ggAdRDmyhdV2TXAx7RF7tYOp1upCcB/ZDcttIoeeeUS0Nz113T6mOhg+LOXEwKQsEC95sa4udu2Ys5AoqL4R8R0i8c5wfh2SvzVWVkf/yRGTaxZfxGWsFnpxq4XGH1dZoHxunvf2Q0rmwm4I5wNksFy14Fj5naqhNpASzp+vjKqt89OW/84855PPt4Lf1ybk92vqpsJnRJgCdQPzpqq38MdlvOGTORw7v8LpfxUMwWAVw++EwuNwUbhDiP9tDT4Di0wBGTrro9crDYvckhOMPajuRyNOgPe6X+we6Y9pthlrag=
+    - secure: gAPpoPnC1mNdPvusyWvKzYayyjcdZrO8+Cp741roYpXxF/3ITwdv2EoC/TxJ24nGXq3EGQ1sDEuAhxzuXfjPoSXcBaBu78T6TBSmd2ChgGKH7J7gXnLX+HaR6G3TrI0rBWH8GIf64m6MY7ERBkoUjfhGjer0JiJPX7seDdm/T3EhSmxtWM082sSz41fGht/v3N8N0WlpdeFX7KynURCcWso2oXOuk3nbm+U/r4ihpADABlCUNnTefGEVG0QyqZebeLsjHzVcnJCZZrkKv+wu51qDEFXPLTr0FoJCkpHBFUaxmTShbookjWzxoele1v4f+1PZy7va9V1o7kgl2eqmDDBd0zW7x2cSPaS6JRswgnIkxbspMQ/4P3I6h02wl78TixHIfx1TBbiZYGtrsuxhCNmabmp5Wh1loxd70vu8/3BVdeINniiqGEbRW9YEWx5jnfvgTpxep/u1limf4qiM0TN8XTNz+1hJ9b5j2/0coVrXMiAfsEHiJdTreBstCkBSxwANxWMC6QkaWtbhwtSN+xQSx8pH0dZB120Fq7ZgVZ9d3S9L2MBfVjMs1PclPrUtAzqlYndxaCuCIjKfGA5xXlpD4U8JIT6IDlTBbp8rJ39UO3OPm0BDVf1xeBEQn3tLeMRv0dGjheDdGHVfxrwLuazXkfKf58cKCw1HegOaKaw=
 
 matrix:
   include:
@@ -11,8 +19,11 @@ matrix:
       compiler: gcc
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['gcc-5', 'g++-5']
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-5
+            - g++-5
       env:
         - _CC=gcc-5
         - _CXX=g++-5
@@ -22,12 +33,13 @@ matrix:
       compiler: clang
       addons:
         apt:
-          sources: ['llvm-toolchain-trusty-4.0']
-          packages: ['clang-4.0']
+          sources:
+            - llvm-toolchain-trusty-4.0
+          packages:
+            - clang-4.0
       env:
         - _CC=clang-4.0
         - _CXX=clang++-4.0
-
 
     - os: osx
       compiler: gcc
@@ -41,19 +53,18 @@ matrix:
         - _CC=clang
         - _CXX=clang++
 
-
 script:
   - export CC=$_CC
   - export CXX=$_CXX
-  # build and test ed25519
+  # build and install library
   - mkdir build && cd build
   - cmake .. -DTESTING=ON
   - make -j2 -k
   - ctest
   - sudo make install
-  # build and execute example
+  # build and install example
   - cd ../example/sign-verify
   - mkdir build && cd build
   - cmake .. -DCMAKE_BUILD_TYPE=Release
   - make
-  - ./test1
+  - "./test1"

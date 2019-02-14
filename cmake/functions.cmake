@@ -1,7 +1,7 @@
 # Creates benchmark "bench_name"
 function(addbenchmark bench_name)
   add_executable(${bench_name} ${ARGN})
-  target_link_libraries(${bench_name} PRIVATE benchmark)
+  target_link_libraries(${bench_name} PRIVATE benchmark::benchmark)
 
   set_target_properties(${bench_name} PROPERTIES
     EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin

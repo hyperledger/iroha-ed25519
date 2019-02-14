@@ -1,3 +1,5 @@
+find_package(OpenSSL QUIET)
+
 ed25519_add_library(sha2_openssl HASH
   SOURCES
     sha256.c

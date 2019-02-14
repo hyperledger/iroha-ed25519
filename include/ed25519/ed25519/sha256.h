@@ -6,42 +6,37 @@ extern "C" {
 #endif
 
 #include "ed25519_export.h"
+#include "sha_context.h"
 
 #define SHA_256_SIZE 32  // bytes
 
-/* implementation-defined sha context size in bytes. */
-ED25519_EXPORT extern const unsigned int SHA_256_CONTEXT_SIZE;
-
-/* context is a block of memory of exactly SHA_256_CONTEXT_SIZE bytes */
-/* example: unsigned char context[SHA_256_CONTEXT_SIZE]; */
-
 /**
  * Initializes context with specific for implementation size.
- * @param[in] context always pass preallocated buffer of SHA_256_CONTEXT_SIZE;
+ * @param[in] context
  * @return 0 if error, non-0 otherwise.
  * @note some implementations may return bad code sometimes, some may not
  */
-ED25519_EXPORT extern int sha256_init(void *context);
+ED25519_EXPORT extern int sha256_init(sha_context *context);
 
 /**
  * Updates hash state with given buffer
- * @param[in] context always pass preallocated buffer of SHA_256_CONTEXT_SIZE;
+ * @param[in] context
  * @param[in] in input buffer with info to be hashed
  * @param[in] inlen buffer size
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-ED25519_EXPORT extern int sha256_update(void *context, const unsigned char *in,
+ED25519_EXPORT extern int sha256_update(sha_context *context, const unsigned char *in,
                                         unsigned long long inlen);
 
 /**
  * Finish hash calculation. Use this to store hash in output buffer (out).
- * @param[in] context always pass preallocated buffer of SHA_256_CONTEXT_SIZE;
+ * @param[in] context
  * @param[in] out output buffer of exactly SHA_256_SIZE bytes
  * @return 0 if error, non-0 otherwise
  * @note some implementations may return bad code sometimes, some may not
  */
-ED25519_EXPORT extern int sha256_final(void *context, unsigned char *out);
+ED25519_EXPORT extern int sha256_final(sha_context *context, unsigned char *out);
 
 /**
  * Inline hash calculation of sha256.

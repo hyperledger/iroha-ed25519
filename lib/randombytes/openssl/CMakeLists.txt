@@ -1,3 +1,5 @@
+find_package(OpenSSL QUIET)
+
 ed25519_add_library(rand_openssl RANDOM
   SOURCES
     randombytes.c

@@ -1,6 +1,4 @@
-if(OPENSSL_FOUND)
-  add_subdirectory(openssl)
-endif()
-
+add_subdirectory(openssl)
+add_subdirectory(bcryptgenrandom)
 add_subdirectory(random)
 add_subdirectory(urandom)

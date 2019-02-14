@@ -1,14 +1,11 @@
-find_package(PackageHandleStandardArgs)
-
-include(ExternalProject)
-set(EP_PREFIX "${PROJECT_SOURCE_DIR}/external")
-set_directory_properties(PROPERTIES EP_PREFIX ${EP_PREFIX})
-
 if(TESTING)
-  find_package(gtest)
-endif()
-if(BENCHMARKING)
-  find_package(benchmark)
+  # https://docs.hunter.sh/en/latest/packages/pkg/GTest.html
+  hunter_add_package(GTest)
+  find_package(GTest CONFIG REQUIRED)
 endif()
 
-find_package(OpenSSL)
+if(BENCHMARKING)
+  # https://docs.hunter.sh/en/latest/packages/pkg/benchmark.html
+  hunter_add_package(benchmark)
+  find_package(benchmark CONFIG REQUIRED)
+endif()

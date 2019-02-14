@@ -38,18 +38,18 @@ TEST(SHA_512, IUF_partial) {
   // second half
   std::string second = msg.substr(msg.size() / 2, msg.size() - 1);
 
-  unsigned char ctx[SHA_512_CONTEXT_SIZE];
-  sha512_init((void *)ctx);
+  sha_context ctx;
+  sha512_init(&ctx);
   /* first half */
-  sha512_update((void *)ctx,
+  sha512_update(&ctx,
                 reinterpret_cast<const unsigned char *>(first.data()),
                 first.size());
   /* second half */
-  sha512_update((void *)ctx,
+  sha512_update(&ctx,
                 reinterpret_cast<const unsigned char *>(second.data()),
                 second.size());
 
-  sha512_final((void *)ctx, (unsigned char *)out.data());
+  sha512_final(&ctx, (unsigned char *)out.data());
 
   std::string actual = bytes2hex((unsigned char *)out.data(), out.size());
 
@@ -63,12 +63,12 @@ TEST(SHA_512, IUF) {
     std::string msg      = c.msg;
     std::string out(SHA_512_SIZE, 0);
 
-    unsigned char ctx[SHA_512_CONTEXT_SIZE];
-    sha512_init((void *)ctx);
-    sha512_update((void *)ctx,
+    sha_context ctx;
+    sha512_init(&ctx);
+    sha512_update(&ctx,
                   reinterpret_cast<const unsigned char *>(msg.data()),
                   msg.size());
-    sha512_final((void *)ctx, (unsigned char *)out.data());
+    sha512_final(&ctx, (unsigned char *)out.data());
 
     std::string actual = bytes2hex((unsigned char *)out.data(), out.size());
 
@@ -110,18 +110,18 @@ TEST(SHA_256, IUF_partial) {
   // second half
   std::string second = msg.substr(msg.size() / 2, msg.size() - 1);
 
-  unsigned char ctx[SHA_256_CONTEXT_SIZE];
-  sha256_init((void *)ctx);
+  sha_context ctx;
+  sha256_init(&ctx);
   /* first half */
-  sha256_update((void *)ctx,
+  sha256_update(&ctx,
                 reinterpret_cast<const unsigned char *>(first.data()),
                 first.size());
   /* second half */
-  sha256_update((void *)ctx,
+  sha256_update(&ctx,
                 reinterpret_cast<const unsigned char *>(second.data()),
                 second.size());
 
-  sha256_final((void *)ctx, (unsigned char *)out.data());
+  sha256_final(&ctx, (unsigned char *)out.data());
 
   std::string actual = bytes2hex((unsigned char *)out.data(), out.size());
 
@@ -135,12 +135,12 @@ TEST(SHA_256, IUF) {
     std::string msg      = c.msg;
     std::string out(SHA_256_SIZE, 0);
 
-    unsigned char ctx[SHA_256_CONTEXT_SIZE];
-    sha256_init((void *)ctx);
-    sha256_update((void *)ctx,
+    sha_context ctx;
+    sha256_init(&ctx);
+    sha256_update(&ctx,
                   reinterpret_cast<const unsigned char *>(msg.data()),
                   msg.size());
-    sha256_final((void *)ctx, (unsigned char *)out.data());
+    sha256_final(&ctx, (unsigned char *)out.data());
 
     std::string actual = bytes2hex((unsigned char *)out.data(), out.size());
 

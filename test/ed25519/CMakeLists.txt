@@ -1,12 +1,7 @@
-set(_random dev_urandom)
+set(_random ${RANDOM})
 foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
   foreach(_hash ${ED25519_SUPPORTED_LIBRARIES_HASH})
     foreach(_build STATIC SHARED)
-
-      if(_build MATCHES SHARED AND _edimpl MATCHES amd64-64-24k)
-        # these builds are incompatible and will fail in any circumstance
-        continue()
-      endif()
 
       set(_target ${_edimpl}-${_hash}-${_random}-${_build})
       ed25519_merge_libraries(ed25519-${_target} ${_build}
@@ -22,10 +17,15 @@ foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
         ed25519-${_target}
         )
 
-      get_target_property(_type "${_hash}" ED25519_HASH_TYPE)
-      target_compile_definitions(test-${_target} PRIVATE
-        -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.${_type}.txt
-        )
+      if(TARGET ${_hash})
+        get_target_property(_type "${_hash}" ED25519_HASH_TYPE)
+        target_compile_definitions(test-${_target} PRIVATE
+          -DTESTDATA_PATH=${CMAKE_CURRENT_SOURCE_DIR}/sign.input.with.${_type}.txt
+          )
+      else()
+        continue()
+      endif()
+
     endforeach()
   endforeach()
 endforeach()
