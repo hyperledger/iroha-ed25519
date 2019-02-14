@@ -102,7 +102,6 @@ endif()
 ## OPTIONS
 ENUM(EDIMPL "${EDIMPL}" "Ed25519 implementation"
   ref10
-  # amd64-64-24k
   amd64-64-24k-pic
   )
 ENUM(HASH "${HASH}" "SHA implementation"
