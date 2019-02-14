@@ -87,7 +87,7 @@ endif()
 if(NOT RANDOM)
   # https://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers/
   if(WIN32)
-    set(RANDOM "bcryptrandom")
+    set(RANDOM "bcryptgenrandom")
   else()
     set(RANDOM "dev_urandom")
   endif()
