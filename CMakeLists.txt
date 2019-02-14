@@ -168,3 +168,8 @@ if(TESTING)
   enable_testing()
   add_subdirectory(test)
 endif()
+
+
+if(BENCHMARK)
+  add_subdirectory(benchmark)
+endif()

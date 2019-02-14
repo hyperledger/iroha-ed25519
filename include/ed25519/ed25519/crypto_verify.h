@@ -7,28 +7,6 @@ extern "C" {
 
 #define VERIFY_F(i) differentbits |= x[i] ^ y[i];
 
-static inline int crypto_verify_16(const unsigned char *x,
-                                   const unsigned char *y) {
-  unsigned int differentbits = 0;
-  VERIFY_F(0)
-  VERIFY_F(1)
-  VERIFY_F(2)
-  VERIFY_F(3)
-  VERIFY_F(4)
-  VERIFY_F(5)
-  VERIFY_F(6)
-  VERIFY_F(7)
-  VERIFY_F(8)
-  VERIFY_F(9)
-  VERIFY_F(10)
-  VERIFY_F(11)
-  VERIFY_F(12)
-  VERIFY_F(13)
-  VERIFY_F(14)
-  VERIFY_F(15)
-  return (1 & ((differentbits - 1) >> 8)) - 1;
-}
-
 static inline int crypto_verify_32(const unsigned char *x,
                                    const unsigned char *y) {
   unsigned int differentbits = 0;
