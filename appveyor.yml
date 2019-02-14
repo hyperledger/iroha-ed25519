@@ -8,6 +8,12 @@ environment:
   GITHUB_HUNTER_USERNAME:
     secure: BIEF4/JfDFDWuYJl/J8G2w==
 
+  # for cache uploading
+  PYTHON: "C:\\Python36-x64"
+  PYTHON_VERSION: "3.6.3"
+  PYTHON_ARCH: "64"
+  PIP: "C:\\Python36-x64\\Scripts\\pip"
+
 cache:
   - C:\.hunter
 
@@ -19,6 +25,10 @@ configuration:
   - Debug
 
 build_script:
+  # make python available in PATH, and print its version
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - python -V
+
   # build and test library
   - cmake -G "Visual Studio 15 2017 Win64" . -DTESTING=ON -DCMAKE_BUILD_TYPE=%CONFIGURATIOIN%
   - cmake --build . --config %CONFIGURATION% -- %MSBUILD_ARGS%
