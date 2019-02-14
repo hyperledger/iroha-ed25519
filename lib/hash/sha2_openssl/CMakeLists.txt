@@ -1,4 +1,4 @@
-find_package(OpenSSL REQUIRED)
+find_package(OpenSSL)
 
 ed25519_add_library(sha2_openssl HASH
   SOURCES
