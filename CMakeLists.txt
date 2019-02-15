@@ -160,6 +160,7 @@ install(
 install(
   EXPORT ed25519Config
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ed25519
+  NAMESPACE iroha::
   )
 export(
   TARGETS ed25519
