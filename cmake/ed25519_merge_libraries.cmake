@@ -29,20 +29,6 @@ function(ed25519_merge_libraries TARGET LIBTYPE)
     $<INSTALL_INTERFACE:include>
     )
 
-#  if (WIN32)
-#    set_target_properties(${TARGET} PROPERTIES
-#      LINK_FLAGS "/WHOLEARCHIVE"
-#      )
-#  elseif (APPLE)
-#    set_target_properties(${TARGET} PROPERTIES
-#      LINK_FLAGS "-Wl,-all_load"
-#      )
-#  else ()
-#    set_target_properties(${TARGET} PROPERTIES
-#      LINK_FLAGS "-Wl,--whole-archive"
-#      )
-#  endif ()
-
   # check that every static library has PIC enabled
   foreach (lib ${ARG_LIBRARIES})
     if (TARGET ${lib})
