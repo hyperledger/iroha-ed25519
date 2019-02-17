@@ -29,7 +29,7 @@ During CMake time, users are able to choose any of these implementations using c
     - `rand_openssl`
     - `dev_urandom` - default
     - `dev_random`
-    - `bcryptgenrandom` (windows only)
+    - `bcryptgen` (windows only)
 - `BUILD`
     - `STATIC`
     - `SHARED` - build ed25519 library as shared library (default)
@@ -48,7 +48,7 @@ $ cmake .. -DEDIMPL=amd64-64-24k-pic -DHASH=sha3_brainhub -DRANDOM=dev_urandom -
 -- HASH=sha3_brainhub is selected (SHA implementation)
 -- RANDOM=dev_urandom is selected (RNG implementation)
 -- BUILD=SHARED is selected (library build type)
--- [ed25519] Target RANDOM=rand_bcryptgenrandom is not supported on your platform
+-- [ed25519] Target RANDOM=bcryptgen is not supported on your platform
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /Users/bogdan/tools/iroha-ed25519/build
@@ -87,4 +87,4 @@ This repository offers 4 implementations:
 - `rand_openssl` uses RAND_bytes from openssl
 - `dev_urandom` reads entropy from `/dev/urandom`
 - `dev_random` reads entropy from `/dev/random` (blocking call, uses busy waiting when user asks for more entropy than device can offer)
-- `bcryptgenrandom` reads entropy from windows preferred entropy source.
+- `bcryptgen` reads entropy from windows preferred entropy source.
