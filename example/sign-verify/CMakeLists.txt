@@ -6,6 +6,6 @@ find_package(ed25519 REQUIRED)
 add_executable(test1
   main.c
   )
-target_link_libraries(test1
+target_link_libraries(test1 PRIVATE
   ed25519
   )

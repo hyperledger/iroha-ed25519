@@ -26,32 +26,49 @@ function(ed25519_merge_libraries TARGET LIBTYPE)
     )
   target_include_directories(${TARGET}
     INTERFACE
-      $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:include>
     )
 
-  if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    # linux only solution
-    ed25519_target_link_libraries(${TARGET}
-      "-Wl,--version-script=${CMAKE_BINARY_DIR}/linker_exportmap"
-      )
-  endif()
+#  if (WIN32)
+#    set_target_properties(${TARGET} PROPERTIES
+#      LINK_FLAGS "/WHOLEARCHIVE"
+#      )
+#  elseif (APPLE)
+#    set_target_properties(${TARGET} PROPERTIES
+#      LINK_FLAGS "-Wl,-all_load"
+#      )
+#  else ()
+#    set_target_properties(${TARGET} PROPERTIES
+#      LINK_FLAGS "-Wl,--whole-archive"
+#      )
+#  endif ()
 
   # check that every static library has PIC enabled
-  foreach(lib ${ARG_LIBRARIES})
-    if(TARGET ${lib})
+  foreach (lib ${ARG_LIBRARIES})
+    if (TARGET ${lib})
       add_dependencies(${TARGET} ${lib})
       get_target_property(LIB_TYPE ${lib} TYPE)
-      if(LIB_TYPE STREQUAL "STATIC_LIBRARY")
+
+      if (LIB_TYPE STREQUAL "STATIC_LIBRARY")
         get_target_property(PIC ${lib} POSITION_INDEPENDENT_CODE)
-        if(NOT PIC)
+        if (NOT PIC)
           message(FATAL_ERROR
             "Attempted to link non-PIC static library ${LIB} to shared library ${TARGET}\n"
             "Please, use ed25519_add_library"
             )
-        endif()
-      endif()
-    endif()
-  endforeach()
+        endif ()
+
+      else()
+        # it is shared library
+        if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+          ed25519_target_link_libraries(amd64-64-24k-pic
+            "-Wl,--version-script=${CMAKE_SOURCE_DIR}/linker_exportmap"
+            )
+        endif ()
+
+      endif ()
+    endif ()
+  endforeach ()
 
   set_target_properties(${TARGET} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}

@@ -36,7 +36,7 @@ function(ed25519_target_link_libraries _target)
     foreach(_lib IN ITEMS ${ARGN})
       if(NOT TARGET ${_lib})
         # flag
-        target_link_libraries(${_target} ${_lib})
+        target_link_libraries(${_target} PRIVATE ${_lib})
       else()
 
         get_target_property(_type "${_lib}" TYPE)
@@ -52,7 +52,7 @@ function(ed25519_target_link_libraries _target)
           _link_ed25519_dependencies(${_target}
             ${_lib}
             )
-          target_link_libraries(${_target}
+          target_link_libraries(${_target} PRIVATE
             ${_lib}
             )
         else()

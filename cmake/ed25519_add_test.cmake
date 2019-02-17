@@ -1,6 +1,6 @@
 function(ed25519_add_test test_name)
   add_executable(${test_name} ${ARGN})
-  target_link_libraries(${test_name}
+  target_link_libraries(${test_name} PRIVATE
     GTest::main
     GTest::gtest
     )
