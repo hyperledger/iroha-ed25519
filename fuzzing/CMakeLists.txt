@@ -3,7 +3,7 @@
 
 set(compiler  "clang-7")
 set(flags     "-g -O1")
-set(options   "-fsanitize=fuzzer,address")
+set(options   "-fsanitize=fuzzer,undefined")
 
 set(CMAKE_C_COMPILER    ${compiler})
 set(CMAKE_CXX_COMPILER  ${compiler})
