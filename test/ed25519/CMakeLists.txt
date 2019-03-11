@@ -4,12 +4,16 @@ foreach(_edimpl ${ED25519_SUPPORTED_LIBRARIES_EDIMPL})
     foreach(_build STATIC SHARED)
 
       set(_target ${_edimpl}-${_hash}-${_random}-${_build})
-      ed25519_merge_libraries(ed25519-${_target} ${_build}
-        LIBRARIES
-          ${_edimpl}
-          ${_hash}
-          ${_random}
-        )
+
+      if(NOT TARGET ed25519-${_target})
+        ed25519_merge_libraries(ed25519-${_target} ${_build}
+          LIBRARIES
+            ${_edimpl}
+            ${_hash}
+            ${_random}
+          )
+      endif()
+
       ed25519_add_test(test-${_target}
         ed25519_test.cpp
         )

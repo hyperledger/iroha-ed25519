@@ -40,6 +40,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 option(TESTING "Enable testing" OFF)
 option(COVERAGE "Enable coverage" OFF)
 option(BENCHMARKING "Enable benchmarking" OFF)
+option(FUZZING "Enable fuzzing targets" OFF)
 
 include_directories(
   ${CMAKE_BINARY_DIR}/
@@ -54,6 +55,7 @@ include(cmake/ed25519_target_link_libraries.cmake)
 include(cmake/ed25519_add_library.cmake)
 include(cmake/ed25519_merge_libraries.cmake)
 include(cmake/ed25519_add_test.cmake)
+include(cmake/ed25519_add_fuzz.cmake)
 include(cmake/ed25519_select_supported_impl.cmake)
 test_build_amd64(CAN_BUILD_AMD64)
 
@@ -158,4 +160,9 @@ endif ()
 
 if (BENCHMARK)
   add_subdirectory(benchmark)
+endif ()
+
+
+if (FUZZING)
+  add_subdirectory(fuzzing)
 endif ()
