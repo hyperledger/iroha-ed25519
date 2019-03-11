@@ -59,3 +59,5 @@ external
 
 example/build
 .vs
+_logs
+_builds

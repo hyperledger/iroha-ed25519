@@ -10,8 +10,8 @@ endif (CCACHE_FOUND)
 
 include("cmake/Hunter/init.cmake")
 HunterGate(
-  URL "https://github.com/ruslo/hunter/archive/v0.23.105.tar.gz"
-  SHA1 "1c7aaffc90d4898f0b55d03b77deb890b2aa0a2b"
+  URL "https://github.com/ruslo/hunter/archive/v0.23.127.tar.gz"
+  SHA1 "2cd79807cb829127896811f8afa15e790b6bde19"
 )
 
 
@@ -23,19 +23,22 @@ project(ed25519 VERSION ${SOVERSION} LANGUAGES C CXX)
 
 enable_language(ASM)
 
-set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_C_STANDARD 11)    # force std=c11
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
+if(NOT EXISTS "${CMAKE_TOOLCHAIN_FILE}")
+  set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
-set(CMAKE_CXX_STANDARD 11)    # force std=c++11
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+  set(CMAKE_C_STANDARD 11)    # force std=c11
+  set(CMAKE_C_STANDARD_REQUIRED ON)
+  set(CMAKE_C_EXTENSIONS OFF)
+
+  set(CMAKE_CXX_STANDARD 11)    # force std=c++11
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
 
 option(TESTING "Enable testing" OFF)
 option(COVERAGE "Enable coverage" OFF)
