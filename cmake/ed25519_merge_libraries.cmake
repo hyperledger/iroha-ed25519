@@ -46,7 +46,7 @@ function(ed25519_merge_libraries TARGET LIBTYPE)
 
       else()
         # it is shared library
-        if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        if ((${CMAKE_SYSTEM_NAME} MATCHES "Linux") AND (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64"))
           ed25519_target_link_libraries(amd64-64-24k-pic
             "-Wl,--version-script=${CMAKE_SOURCE_DIR}/linker_exportmap"
             )
