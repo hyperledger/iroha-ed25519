@@ -1,0 +1,9 @@
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+repository:
+  name: iroha-ed25519
+  description: Archive of iroha-ed25519: RFC8032 compatible Ed25519 implementation with pluggable hash
+  archived: true
+  private: false
